@@ -1,15 +1,15 @@
 package dto;
 
-public class Class {
+public class Classs {
 	private int cID;
 	private String grade;
 	private String cName;
 
-	public Class(){
+	public Classs(){
 
 	}
 
-	public Class(int cID, String grade, String cName) {
+	public Classs(int cID, String grade, String cName) {
 		this.cID = cID;
 		this.grade = grade;
 		this.cName = cName;
