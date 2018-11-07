@@ -21,20 +21,20 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/managedb?useSSL=false",
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
 					"Abe",
 					"Dai");
 
-			String sql = "SELECT Task.taskName Teacher.tName, Task.deadline, "
+			String sql = "SELECT Task.taskName, Task.deadline, Teacher.tName "
 					+ "FROM Task "
 					+ "JOIN Teacher "
 					+ "ON Task.tID = Teacher.tID "
-					+ "WHERE Task.cID = ?";
+					+ "AND Task.cID = 1 ";
 
 			pstmt = con.prepareStatement(sql);
 
 			int Class = Integer.parseInt(classs);
-			pstmt.setInt(1, Class);
+			//pstmt.setInt(1, Class);
 
 			rs = pstmt.executeQuery();
 
