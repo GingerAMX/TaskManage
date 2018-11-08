@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dto.DistributionIndex;
 import dto.TaskIndex;
 
 public class ManageDAO {
@@ -79,6 +80,75 @@ public class ManageDAO {
 		}
 		return resultList;
 	}
+	//配布されている課題一覧
+	public static ArrayList<DistributionIndex> distributionIndex(String tID) {
+		ArrayList<DistributionIndex> resultList = new ArrayList<DistributionIndex>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "SELECT Task.taskName, Task.deadline, Class.grade, Class.cName "
+					+ "FROM Task "
+					+ "JOIN Class "
+					+ "ON Task.cID = Class.cID "
+					+ "AND Task.tID = 00000001 ";
+
+			pstmt = con.prepareStatement(sql);
+
+			int Tid = Integer.parseInt(tID);
+			//pstmt.setInt(1, Tid);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next() == true) {
+				String taskName = rs.getString("taskName");
+				int grade = rs.getInt("grade");
+				int cName = rs.getInt("cName");
+				int deadline = rs.getInt("deadline");
+				resultList.add(new DistributionIndex(taskName,deadline,grade,cName));
+			}
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("JDBCドライバが見つかりません。");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("DBアクセス時にエラーが発生しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
 
 }
