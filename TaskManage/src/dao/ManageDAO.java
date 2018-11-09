@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dto.DistributionIndex;
+import dto.TaskContent;
 import dto.TaskIndex;
 
 public class ManageDAO {
@@ -149,6 +150,128 @@ public class ManageDAO {
 			}
 		}
 		return resultList;
+	}
+
+	//課題内容詳細
+	public static ArrayList<TaskContent> taskContent(String taskID) {
+		ArrayList<TaskContent> resultList = new ArrayList<TaskContent>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "SELECT Task.taskName, Teacher.tName, Task.deadline, Task.text "
+					+ "FROM Task "
+					+ "JOIN Teacher "
+					+ "ON Task.tID = Teacher.tID "
+					+ "AND Task.taskID = 1";
+
+			pstmt = con.prepareStatement(sql);
+
+			int taskid = Integer.parseInt(taskID);
+			//pstmt.setInt(1, taskid);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next() == true) {
+				String taskName = rs.getString("taskName");
+				String tName = rs.getString("tName");
+				String text = rs.getString("text");
+				int deadline = rs.getInt("deadline");
+				resultList.add(new TaskContent(taskName,tName,deadline,text));
+			}
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("JDBCドライバが見つかりません。");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("DBアクセス時にエラーが発生しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
+
+	//課題提出
+	public static void submit() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/managedb?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "INSERT INTO Students VALUES(?,?,?,?)";
+
+			pstmt = con.prepareStatement(sql);
+
+			int Id = Integer.parseInt(id);
+			int Grade = Integer.parseInt(grade);
+
+			pstmt.setInt(1, Id);
+			pstmt.setString(2, name);
+			pstmt.setInt(3, Grade);
+			pstmt.setString(4, class0);
+
+			pstmt.executeUpdate();
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
