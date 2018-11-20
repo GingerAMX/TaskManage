@@ -6,13 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+</head>
+
 <body>
-	<input type="file" id="files" name="files[]" multiple />
-	<output id="list"></output>
+	<form action="/TaskManage/Submit" method="post" enctype="multipart/form-data">
+		<p>ファイル：
+		<input id="file" name="file" type="file" required>
+		</p>
 
-	<%
-		//読み取りの進行状況の監視
-	%>
-
+		<input type="submit" value="提出">
+	</form>
 </body>
 </html>

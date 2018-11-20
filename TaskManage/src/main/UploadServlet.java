@@ -1,5 +1,4 @@
 package main;
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,40 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import dao.ManageDAO;
-
-/**
- * Servlet implementation class Submit
- */
-@WebServlet("/Submit")
+@WebServlet("/UploadServlet")
 @MultipartConfig(location="c:/tmp", maxFileSize=1048576)
-public class Submit extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class UploadServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String view = "/WEB-INF/view/Submit.jsp";
+		String view = "/WEB-INF/view/UploadServlet.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		//String taskID = request.getParameter("taskID");
-		//String cID = request.getParameter("cID");
-		//String sID = request.getParameter("sID");
-
-		//仮の値
-		String cID = "1";
-		String sID = "4171201";
-		String taskID = "1";
-
-		//ファイルパスの取得
-		Part part = request.getPart("file");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("UTF-8");
+    	Part part = request.getPart("file");
     	String name = this.getFileName(part);
     	System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
-
-    	//ファイルの保存 パス変更箇所(サーバ接続時)
         try {
         part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
 
@@ -53,15 +33,10 @@ public class Submit extends HttpServlet {
         	System.out.println("ファイル出力error");
         	e.printStackTrace();
         }
-        String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
-
-        //DAOにデータの送信
-        ManageDAO.submit(taskID,cID,sID,textPath);
-
-        //jspファイルへ
-        String view = "/WEB-INF/view/Submit.jsp";
+        String view = "/WEB-INF/view/UploadServlet.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
+        //response.sendRedirect("/WEB-INF/view/UploadServlet.jsp");
     }
 
     private String getFileName(Part part) {
@@ -75,5 +50,4 @@ public class Submit extends HttpServlet {
         }
         return name;
     }
-
 }

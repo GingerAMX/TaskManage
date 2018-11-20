@@ -224,7 +224,7 @@ public class ManageDAO {
 	}
 
 	//課題提出
-	public static void submit() {
+	public static void submit(String taskID, String cID, String sID, String text) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -232,21 +232,22 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/managedb?useSSL=false",
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
 					"Abe",
 					"Dai");
 
-			String sql = "INSERT INTO Students VALUES(?,?,?,?)";
+			String sql = "INSERT INTO TaskManage VALUES(null,?,?,?,now(),?)";
 
 			pstmt = con.prepareStatement(sql);
 
-			int Id = Integer.parseInt(id);
-			int Grade = Integer.parseInt(grade);
+			int SID = Integer.parseInt(sID);
+			int CID = Integer.parseInt(cID);
+			int TaskID = Integer.parseInt(taskID);
 
-			pstmt.setInt(1, Id);
-			pstmt.setString(2, name);
-			pstmt.setInt(3, Grade);
-			pstmt.setString(4, class0);
+			pstmt.setInt(1, SID);
+			pstmt.setString(2, cID);
+			pstmt.setInt(3, TaskID);
+			pstmt.setString(4, text);
 
 			pstmt.executeUpdate();
 
