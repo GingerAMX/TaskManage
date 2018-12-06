@@ -22,8 +22,8 @@ public class ManageDAO {
 
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"user1",
+					"pass1");
 
 			String sql = "SELECT Task.taskName, Task.deadline, Teacher.tName "
 					+ "FROM Task "
