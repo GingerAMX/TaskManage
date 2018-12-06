@@ -26,8 +26,8 @@
 
 	//課題内容詳細
 
-	out.print(result.getTaskName());
-	out.print(result.gettName());
+	out.println(result.getTaskName());
+	out.println(result.gettName());
 	out.println(date[i]);
 	out.println(result.getText());
 	%>

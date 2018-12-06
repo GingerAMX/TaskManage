@@ -11,18 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ManageDAO;
+import dto.Submitted;
+import dto.UnSubmitted;
 
 /**
- * Servlet implementation class TaskContent
+ * Servlet implementation class Status
  */
-@WebServlet("/TaskContent")
-public class TaskContent extends HttpServlet {
+@WebServlet("/Status")
+public class Status extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TaskContent() {
+    public Status() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +34,20 @@ public class TaskContent extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String tName = request.getParameter("taskID");
+		//String cID = request.getParameter("cID");
+		//String taskID = request.getParameter("taskID");
+		String cID = "1";
 		String taskID = "2";
 
-		ArrayList<dto.TaskContent> result = ManageDAO.taskContent(taskID);
+		//提出者の取得
+		ArrayList<Submitted> submitted = ManageDAO.submitted(taskID);
+		request.setAttribute("submitted", submitted);
 
-		request.setAttribute("resultList", result);
+		//未提出者の取得
+		ArrayList<UnSubmitted> unSubmitted = ManageDAO.unSubmitted(cID,taskID);
+		request.setAttribute("unSubmitted", unSubmitted);
 
-		String view = "/WEB-INF/view/TaskContent.jsp";
+		String view = "/WEB-INF/view/Status.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}
@@ -48,8 +56,6 @@ public class TaskContent extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
+	}
 }

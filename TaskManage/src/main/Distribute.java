@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ManageDAO;
 
 /**
- * Servlet implementation class Acquisition
+ * Servlet implementation class Distribute
  */
-@WebServlet("/Acquisition")
-public class Acquisition extends HttpServlet {
+@WebServlet("/Distribute")
+public class Distribute extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Acquisition() {
+    public Distribute() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,7 @@ public class Acquisition extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String view = "/WEB-INF/view/Acquisition.jsp";
+		String view = "/WEB-INF/view/Distribute.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}
@@ -41,17 +41,15 @@ public class Acquisition extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String taskID = request.getParameter("taskID");
-		//String cID = request.getParameter("cID");
-		//String sID = request.getParameter("sID");
-		String text = request.getParameter("text");
-		String cID = "1";
-		String sID = "4171201";
-		String taskID = "1";
+		String taskName = request.getParameter("taskName");
+		String content = request.getParameter("content");
+		String grade = request.getParameter("grade");
+		String cName = request.getParameter("class");
+		String deadline = request.getParameter("deadline");
 
-		ManageDAO.submit(taskID,cID,sID,text);
+		ManageDAO.distribute(taskName,content,grade,cName,deadline);
 
-		String view = "/WEB-INF/view/Acquisition.jsp";
+		String view = "/WEB-INF/view/Distribute.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}
