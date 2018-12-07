@@ -1,18 +1,18 @@
 package dto;
 
-public class Students {
+public class Submitted {
 	private int sID;
 	private String sName;
-	private String pass;
+	private int date;
 
-	public Students(){
+	public Submitted() {
 
 	}
 
-	public Students(int sID, String sName, String pass) {
+	public Submitted(int sID, String sName, int date) {
 		this.sID = sID;
 		this.sName = sName;
-		this.pass = pass;
+		this.date = date;
 	}
 
 	public int getsID() {
@@ -31,12 +31,12 @@ public class Students {
 		this.sName = sName;
 	}
 
-	public String getPass() {
-		return pass;
+	public int getDate() {
+		return date;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setDate(int date) {
+		this.date = date;
 	}
 
 }

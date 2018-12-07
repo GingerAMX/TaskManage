@@ -1,18 +1,16 @@
 package dto;
 
-public class Students {
+public class UnSubmitted {
 	private int sID;
 	private String sName;
-	private String pass;
 
-	public Students(){
+	public void unSubmitted(){
 
 	}
 
-	public Students(int sID, String sName, String pass) {
+	public UnSubmitted(int sID, String sName) {
 		this.sID = sID;
 		this.sName = sName;
-		this.pass = pass;
 	}
 
 	public int getsID() {
@@ -29,14 +27,6 @@ public class Students {
 
 	public void setsName(String sName) {
 		this.sName = sName;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 
 }
