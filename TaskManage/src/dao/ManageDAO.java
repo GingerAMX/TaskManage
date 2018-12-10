@@ -16,6 +16,233 @@ import dto.UnSubmitted;
 import dto.Zip;
 
 public class ManageDAO {
+	//学生新規登録
+	public static int sRegister(String sID, String pass, String sName, String grade, String cName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String num[] = new String[3];
+		int result = 0;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			//クラステーブル内の検索
+			String sql = "SELECT Class.cID, Class.grade, Class.cName "
+					+ "FROM Class "
+					+ "WHERE grade = ? AND cName = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, grade);
+			pstmt.setString(2, cName);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next() == true){
+				String num1 = Integer.toString(rs.getInt("cID"));
+				String num2 = rs.getString("grade");
+				String num3 = rs.getString("cName");
+				num[0] = num1;
+				num[1] = num2;
+				num[2] = num3;
+			}
+
+			//学年とクラスが一致したレコードがあった場合(クラスIDが存在)
+			if(num[0] != null) {
+				int mid = Integer.parseInt(num[0]);
+				//学生テーブルの検索
+				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				int SID = Integer.parseInt(sID);
+
+				pstmt.setInt(1, SID);
+				pstmt.setInt(2, SID);
+
+				result = pstmt.executeUpdate();
+
+				//学生の情報の登録
+				if(result == 0) {
+					sql = "INSERT INTO Students VALUES(?,?,?,?)";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, SID);
+					pstmt.setString(2, sName);
+					pstmt.setString(3,pass);
+					pstmt.setInt(4, mid);
+
+					pstmt.executeUpdate();
+
+					result = 2;
+				}else if(result != 0){
+					return result;
+				}
+			//一致するレコードがなかった場合(クラスIDがない)
+			}else if(num[0] == null) {
+				//クラスIDの登録
+				sql = "INSERT INTO Class VALUES(0,?,?)";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setString(1, grade);
+				pstmt.setString(2, cName);
+
+				result = pstmt.executeUpdate();
+
+				//学生テーブルの検索
+				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				int SID = Integer.parseInt(sID);
+
+				pstmt.setInt(1, SID);
+				pstmt.setInt(2, SID);
+
+				result = pstmt.executeUpdate();
+
+				//入力した値と重複するレコードがなかった場合
+				if(result == 0) {
+					//クラスIDの取得
+					sql = "SELECT Class.cID, Class.grade, Class.cName "
+							+ "FROM Class "
+							+ "WHERE grade = ? AND cName = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setString(1, grade);
+					pstmt.setString(2, cName);
+
+					rs = pstmt.executeQuery();
+
+					while(rs.next() == true){
+						String num1 = Integer.toString(rs.getInt("cID"));
+						String num2 = rs.getString("grade");
+						String num3 = rs.getString("cName");
+						num[0] = num1;
+						num[1] = num2;
+						num[2] = num3;
+					}
+
+					int mid = Integer.parseInt(num[0]);
+
+					//学生情報の登録
+					sql = "INSERT INTO Students VALUES(?,?,?,?)";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, SID);
+					pstmt.setString(2, sName);
+					pstmt.setString(3,pass);
+					pstmt.setInt(4, mid);
+
+					pstmt.executeUpdate();
+
+					result = 2;
+				}else if(result != 0){
+					return result;
+				}
+			}
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	//教員新規登録
+	public static int tRegister(String tID, String tName, String pass) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num[] = new int[3];
+		int result = 0;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "UPDATE Teacher SET tID = ? WHERE tID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int TID = Integer.parseInt(tID);
+
+			pstmt.setInt(1, TID);
+			pstmt.setInt(2, TID);
+
+			result = pstmt.executeUpdate();
+
+			//教員の情報の登録
+			if(result == 0) {
+				sql = "INSERT INTO Teacher VALUES(?,?,?,null)";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, TID);
+				pstmt.setString(2, tName);
+				pstmt.setString(3,pass);
+
+				pstmt.executeUpdate();
+
+				result = 2;
+			}
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	//配布されている課題一覧
 	public static ArrayList<TaskIndex> taskIndex(String classs) {
 		ArrayList<TaskIndex> resultList = new ArrayList<TaskIndex>();
@@ -85,6 +312,7 @@ public class ManageDAO {
 		}
 		return resultList;
 	}
+
 	//配布されている課題一覧
 	public static ArrayList<DistributionIndex> distributionIndex(String tID) {
 		ArrayList<DistributionIndex> resultList = new ArrayList<DistributionIndex>();
