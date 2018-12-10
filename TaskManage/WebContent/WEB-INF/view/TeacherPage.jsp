@@ -47,5 +47,9 @@
 				}
 				%>
 	</table>
+	<form action="/TaskManage/TeacherPage" method="POST">
+		<p>管理者パスワード：<label><input type="password" name="pass"></label></p>
+		<input type="submit" vlaue="ログイン">
+	</form>
 </body>
 </html>

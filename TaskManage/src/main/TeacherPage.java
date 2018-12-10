@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.Manager;
+
 import dao.ManageDAO;
 import dto.DistributionIndex;
 
@@ -49,8 +51,17 @@ public class TeacherPage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String tID = request.getParameter("tID");
+		String pass = request.getParameter("pass");
+
+		ArrayList<Manager> user = ManageDAO.mLogin(tID,pass);
+
+		request.setAttribute("manager", user);
+
+		String view = "/WEB-INF/view/.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 
 }

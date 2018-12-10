@@ -33,15 +33,16 @@
 	<% //課題一覧の表示 %>
 	<table border="1" align="center" id="delete">
 				<tr>
-					<th>課題名</th><th>期限</th><th>提出先</th>
+					<th>課題ID</th><th>課題名</th><th>期限</th><th>提出先</th><th></th>
 				</tr>
 				<%
 				int j = 0;
 				while(j < resultList.size()) {
 					TaskIndex result = (TaskIndex)resultList.get(j);
 					out.println("<tr>");
-					out.println("<td>" + result.getTaskName() + "</td>" + "<td>" + date[j] + "</td>"
-					+ "<td>"+ result.gettName() + "</td>");
+					out.println("<td>" + result.getTaskID() + "</td>" + "<td>" + result.getTaskName()+ "</td>"
+					+ "<td>" + date[j] + "</td>" + "<td>"+ result.gettName() + "</td>"
+					+ "<td>＞</td>");
 					out.println("<tr>");
 					j = j + 1;
 				}

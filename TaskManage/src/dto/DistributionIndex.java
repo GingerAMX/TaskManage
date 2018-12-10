@@ -1,6 +1,7 @@
 package dto;
 
 public class DistributionIndex {
+	private int taskID;
 	private String taskName;
 	private int deadline;
 	private int grade;
@@ -10,11 +11,20 @@ public class DistributionIndex {
 
 	}
 
-	public DistributionIndex(String taskName, int deadline, int grade, int cName) {
+	public DistributionIndex(int taskID, String taskName, int deadline, int grade, int cName) {
+		this.taskID = taskID;
 		this.taskName = taskName;
 		this.deadline = deadline;
 		this.grade = grade;
 		this.cName = cName;
+	}
+
+	public int getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
 	}
 
 	public String getTaskName() {

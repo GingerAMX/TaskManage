@@ -258,7 +258,7 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			String sql = "SELECT Task.taskName, Task.deadline, Teacher.tName "
+			String sql = "SELECT Task.taskID, Task.taskName, Task.deadline, Teacher.tName "
 					+ "FROM Task "
 					+ "JOIN Teacher "
 					+ "ON Task.tID = Teacher.tID "
@@ -272,10 +272,11 @@ public class ManageDAO {
 			rs = pstmt.executeQuery();
 
 			while(rs.next() == true) {
+				int taskID = rs.getInt("taskID");
 				String taskName = rs.getString("taskName");
 				String tName = rs.getString("tName");
 				int deadline = rs.getInt("deadline");
-				resultList.add(new TaskIndex(taskName,tName,deadline));
+				resultList.add(new TaskIndex(taskID,taskName,tName,deadline));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -328,7 +329,7 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			String sql = "SELECT Task.taskName, Task.deadline, Class.grade, Class.cName "
+			String sql = "SELECT Task.taskID, Task.taskName, Task.deadline, Class.grade, Class.cName "
 					+ "FROM Task "
 					+ "JOIN Class "
 					+ "ON Task.cID = Class.cID "
@@ -342,11 +343,12 @@ public class ManageDAO {
 			rs = pstmt.executeQuery();
 
 			while(rs.next() == true) {
+				int taskID = rs.getInt("taskID");
 				String taskName = rs.getString("taskName");
 				int grade = rs.getInt("grade");
 				int cName = rs.getInt("cName");
 				int deadline = rs.getInt("deadline");
-				resultList.add(new DistributionIndex(taskName,deadline,grade,cName));
+				resultList.add(new DistributionIndex(taskID,taskName,deadline,grade,cName));
 			}
 
 		} catch (ClassNotFoundException e) {
