@@ -3,6 +3,7 @@
 <%@page import="dao.ManageDAO"%>
 <%@page import="dto.DistributionIndex"%>
 <%@page import="dto.Students"%>
+<%@page import="dto.Manager" %>
 <%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -48,9 +49,5 @@
 				}
 				%>
 	</table>
-	<form action="/TaskManage/ManagerPage" method="POST">
-		<p>管理者パスワード：<label><input type="password" name="pass"></label></p>
-		<input type="submit" value="ログイン">
-	</form>
 </body>
 </html>
