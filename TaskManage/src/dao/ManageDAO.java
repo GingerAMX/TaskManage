@@ -14,6 +14,7 @@ import dto.Submitted;
 import dto.TaskContent;
 import dto.TaskIndex;
 import dto.UnSubmitted;
+import dto.UserIndex;
 import dto.Zip;
 
 public class ManageDAO {
@@ -244,8 +245,8 @@ public class ManageDAO {
 		}
 		return result;
 	}
-	//配布されている課題一覧
-	public static ArrayList<TaskIndex> taskIndex(String classs) {
+	//配布されている課題一覧(学生)
+	public static ArrayList<TaskIndex> taskIndex(String cID) {
 		ArrayList<TaskIndex> resultList = new ArrayList<TaskIndex>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -263,12 +264,12 @@ public class ManageDAO {
 					+ "FROM Task "
 					+ "JOIN Teacher "
 					+ "ON Task.tID = Teacher.tID "
-					+ "AND Task.cID = 1 ";
+					+ "AND Task.cID = ? ";
 
 			pstmt = con.prepareStatement(sql);
 
-			int Class = Integer.parseInt(classs);
-			//pstmt.setInt(1, Class);
+			int CID = Integer.parseInt(cID);
+			pstmt.setInt(1, CID);
 
 			rs = pstmt.executeQuery();
 
@@ -315,7 +316,7 @@ public class ManageDAO {
 		return resultList;
 	}
 
-	//配布されている課題一覧
+	//配布中の課題一覧(教員)
 	public static ArrayList<DistributionIndex> distributionIndex(String tID) {
 		ArrayList<DistributionIndex> resultList = new ArrayList<DistributionIndex>();
 		Connection con = null;
@@ -889,5 +890,165 @@ public class ManageDAO {
 			}
 		}
 		return resultList;
+	}
+	//ユーザ一覧
+	public static ArrayList<UserIndex> userIndex(String grade,String cName) {
+		ArrayList<UserIndex> resultList = new ArrayList<UserIndex>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			if("0".equals(grade) && "0".equals(cName)){
+				//教員レコードの取得
+				String sql = "SELECT tName, tID FROM Teacher";
+
+				pstmt = con.prepareStatement(sql);
+
+				rs = pstmt.executeQuery();
+				while(rs.next() == true) {
+					String tName = rs.getString("tName");
+					int tID = rs.getInt("tID");
+					resultList.add(new UserIndex(tName,tID));
+				}
+
+			}else{
+				int[] num = new int[1];
+				//クラスIDの取得
+				String sql = "SELECT cID FROM Class WHERE grade = ? AND cName = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setString(1, grade);
+				pstmt.setString(2, cName);
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next() == true){
+					int cID = rs.getInt("cID");
+					num[0] = cID;
+				}
+
+				sql = "SELECT sName, sID FROM Students WHERE cID = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, num[0]);
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next() == true) {
+					String sName = rs.getString("sName");
+					int sID = rs.getInt("sID");
+					resultList.add(new UserIndex(sName,sID));
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("JDBCドライバが見つかりません。");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("DBアクセス時にエラーが発生しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
+	//ユーザの削除
+	public static void userDelete(String[] user) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+			//値の長さを求める
+			int valLen = String.valueOf(user[0]).length();
+
+			//教員ID(8桁)の場合
+			if(valLen == 8){
+				for(String str : user){
+					String sql = "DELETE FROM Student WHERE sID = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					int sID = Integer.parseInt(str);
+
+					pstmt.setInt(1, sID);
+
+					pstmt.executeUpdate();
+				}
+			//学籍番号(7桁)の場合
+			}else if(valLen == 7){
+				for(String str : user){
+					String sql = "DELETE FROM Student WHERE sID = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					int sID = Integer.parseInt(str);
+
+					pstmt.setInt(1, sID);
+
+					pstmt.executeUpdate();
+				}
+			}
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
 	}
 }

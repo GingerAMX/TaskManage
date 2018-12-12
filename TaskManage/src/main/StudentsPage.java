@@ -33,10 +33,10 @@ public class StudentsPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String classs = request.getParameter("classs");
-		String classs = "1";
+		//String cID = request.getParameter("cID");
+		String cID = "1";
 
-		ArrayList<TaskIndex> result = ManageDAO.taskIndex(classs);
+		ArrayList<TaskIndex> result = ManageDAO.taskIndex(cID);
 
 		request.setAttribute("resultList", result);
 
