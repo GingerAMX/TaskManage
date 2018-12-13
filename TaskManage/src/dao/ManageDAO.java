@@ -1016,7 +1016,7 @@ public class ManageDAO {
 			//学籍番号(7桁)の場合
 			}else if(valLen == 7){
 				for(String str : user){
-					String sql = "DELETE FROM Student WHERE sID = ?";
+					String sql = "DELETE FROM Students WHERE sID = ?";
 
 					pstmt = con.prepareStatement(sql);
 

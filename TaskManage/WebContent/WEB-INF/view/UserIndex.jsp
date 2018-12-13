@@ -17,6 +17,17 @@
 	ArrayList<UserIndex> resultList = (ArrayList<UserIndex>)request.getAttribute("resultList");
 	%>
 	<main>
+	<script type="text/javascript">
+		<!--
+		function AllChecked(){
+		  var check =  document.checkform.checkbox.checked;
+
+		  for (var i=0; i<document.checkform.userID.length; i++){
+		    document.form.useID[i].checked = check;
+		  }
+		}
+		//-->
+	</script>
 	<div class="margin_box">
 		<div class="box">
 			<form action="/TaskManage/UserIndex" method="POST">
@@ -37,14 +48,14 @@
 					<a href="#" class="square_btn">←</a>
 				</div>
 			</form>
-			<form action="/TaskManage/UserIndex" method="POST">
+			<form action="/TaskManage/UserIndex" method="POST" name="checkform">
 				<div class="namelist_margin">
 					<div class="namelist1">
 						<div class="namelist_box">
+							<label><input type="checkbox" name="checkbox" onClick="AllChecked();">全選択</label>
 							<table>
 								<%
 								int j = 0;
-								System.out.println("1");
 								if(resultList != null){
 									while(j < resultList.size()) {
 										UserIndex result = (UserIndex)resultList.get(j);
@@ -52,12 +63,11 @@
 										//ユーザの判定
 										int valLen = String.valueOf(result.getUserID()).length();
 										if(valLen == 8){
-											System.out.println("2");
 											//教員
 											out.println("<tr>");
 											out.println("<td><input type=submit value=" + result.getUser() + "></td>"
 											+ "<td><input class=select_delete type=checkbox name=userID value="
-											+ result.getUserID() + "></td> ");
+											+ result.getUserID() + "onClick=DisChecked();></td> ");
 											out.println("<tr>");
 											j = j + 1;
 
