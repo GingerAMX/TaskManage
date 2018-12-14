@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ManageDAO;
 
 /**
- * Servlet implementation class UserIndex
+ * Servlet implementation class Authority
  */
-@WebServlet("/UserIndex")
-public class UserIndex extends HttpServlet {
+@WebServlet("/Authority")
+public class Authority extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIndex() {
+    public Authority() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +30,8 @@ public class UserIndex extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
-		String view = "/WEB-INF/view/UserIndex.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -43,14 +39,10 @@ public class UserIndex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String[] userID = request.getParameterValues("userID");
-		String grade = request.getParameter("grade");
-		String cName = request.getParameter("cName");
-		String teacher = request.getParameter("teacher");
 		String tID = request.getParameter("tID");
 
 		//権限の確認
-		if(tID != null && "".equals(userID)){
+		if(tID != null){
 			String[] list = ManageDAO.authority(tID);
 			request.setAttribute("list", list);
 
@@ -58,23 +50,7 @@ public class UserIndex extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}
-		//ユーザの削除
-		if(userID != null){
-			ManageDAO.userDelete(userID);
-		}
-		//学生の表示
-		if(grade != null && cName != null && teacher == null){
-			ArrayList<dto.UserIndex> result = ManageDAO.userIndex(grade,cName);
-			request.setAttribute("resultList", result);
-		//教員の表示
-		} else if(teacher != null) {
-			ArrayList<dto.UserIndex> result = ManageDAO.userIndex(grade,cName);
-			request.setAttribute("resultList", result);
-		}
 
-		String view = "/WEB-INF/view/UserIndex.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);
 	}
 
 }

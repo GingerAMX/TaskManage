@@ -603,9 +603,10 @@ public class ManageDAO {
 		return resultList;
 	}
 	//課題配布
-	public static void distribute(String taskName, String content, String grade, String cName, String deadline) {
+	public static void distribute(String taskName, String content, String tID, String grade, String cName, String deadline) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		int cID = 0;
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -615,18 +616,30 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			String sql = "INSERT INTO Task VALUES(0,?,?,?,?,?)";
+			String sql = "SELECT cID FROM Class WHERE grade = ? AND cName = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, grade);
+			pstmt.setString(2, cName);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while(rs.next() == true) {
+				cID = rs.getInt("cID");
+			}
+
+			sql = "INSERT INTO Task VALUES(0,?,?,?,?,?)";
 
 			pstmt = con.prepareStatement(sql);
 
 			int deadLine = Integer.parseInt(deadline);
-			int Grade = Integer.parseInt(grade);
-			int CName = Integer.parseInt(cName);
+			int TID = Integer.parseInt(tID);
 
 			pstmt.setString(1, taskName);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, Grade);
-			pstmt.setInt(4, CName);
+			pstmt.setInt(3, TID);
+			pstmt.setInt(4, cID);
 			pstmt.setInt(5, deadLine);
 
 			pstmt.executeUpdate();
@@ -1050,5 +1063,65 @@ public class ManageDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	//権限の有無の確認
+	public static String[] authority(String tID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String[] list = new String[3];
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "SELECT tID, tName, mPass FROM Teacher WHERE tID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int id = Integer.parseInt(tID);
+
+			pstmt.setInt(1, id);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next() == true){
+				id = rs.getInt("tID");
+				String tName = rs.getString("tName");
+				String mPass = rs.getString("mPass");
+				String mid = Integer.toString(id);
+				list[0] = mid;
+				list[1] = tName;
+				list[2] = mPass;
+			}
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }
