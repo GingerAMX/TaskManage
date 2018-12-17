@@ -389,7 +389,7 @@ public class ManageDAO {
 	}
 
 	//課題内容詳細
-	public static ArrayList<TaskContent> taskContent(String taskID) {
+	public static ArrayList<TaskContent> taskContent(String taskid, int valLen) {
 		ArrayList<TaskContent> resultList = new ArrayList<TaskContent>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -403,26 +403,55 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			String sql = "SELECT Task.taskName, Teacher.tName, Task.deadline, Task.text "
-					+ "FROM Task "
-					+ "JOIN Teacher "
-					+ "ON Task.tID = Teacher.tID "
-					+ "AND Task.taskID = 2";
+			if(valLen == 7){
+				String sql = "SELECT Task.taskName, Task.taskID, Teacher.tName, Task.deadline, Task.text "
+						+ "FROM Task "
+						+ "JOIN Teacher "
+						+ "ON Task.tID = Teacher.tID "
+						+ "AND Task.taskID = 2";
 
-			pstmt = con.prepareStatement(sql);
+				pstmt = con.prepareStatement(sql);
 
-			int taskid = Integer.parseInt(taskID);
-			//pstmt.setInt(1, taskid);
+				int taskID = Integer.parseInt(taskid);
+				//pstmt.setInt(1, taskid);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			while(rs.next() == true) {
-				String taskName = rs.getString("taskName");
-				String tName = rs.getString("tName");
-				String text = rs.getString("text");
-				int deadline = rs.getInt("deadline");
-				resultList.add(new TaskContent(taskName,tName,deadline,text));
+				while(rs.next() == true) {
+					String taskName = rs.getString("taskName");
+					taskID = rs.getInt("taskID");
+					String name = rs.getString("tName");
+					String text = rs.getString("text");
+					int deadline = rs.getInt("deadline");
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text));
+				}
+
+			}else if(valLen == 8){
+				String sql = "SELECT Task.taskName, Task.TaskID, Class.grade, Class.cName, Task.deadline, Task.text "
+						+ "FROM Task "
+						+ "JOIN Class "
+						+ "ON Task.cID = Class.cID "
+						+ "AND Task.taskID = 2";
+
+				pstmt = con.prepareStatement(sql);
+
+				int taskID = Integer.parseInt(taskid);
+				//pstmt.setInt(1, taskid);
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next() == true) {
+					String taskName = rs.getString("taskName");
+					taskID = rs.getInt("taskID");
+					String grade = rs.getString("grade");
+					String cName = rs.getString("cName");
+					String name = grade + "年" + cName + "組";
+					String text = rs.getString("text");
+					int deadline = rs.getInt("deadline");
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text));
+				}
 			}
+
 
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBCドライバが見つかりません。");
@@ -1192,6 +1221,52 @@ public class ManageDAO {
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);
+
+			pstmt.executeUpdate();
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+	}
+	//課題の削除
+	public static void taskDelete(String taskID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "DELETE FROM Task WHERE taskID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int id = Integer.parseInt(taskID);
+
+			pstmt.setString(1, taskID);
 
 			pstmt.executeUpdate();
 

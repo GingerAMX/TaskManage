@@ -2,7 +2,8 @@ package dto;
 
 public class TaskContent {
 	private String taskName;
-	private String tName;
+	private int taskID;
+	private String name;
 	private int deadline;
 	private String text;
 
@@ -10,9 +11,10 @@ public class TaskContent {
 
 	}
 
-	public TaskContent(String taskName, String tName, int deadline, String text) {
+	public TaskContent(String taskName, int taskID, String name, int deadline, String text) {
 		this.taskName = taskName;
-		this.tName = tName;
+		this.taskID = taskID;
+		this.name = name;
 		this.deadline = deadline;
 		this.text = text;
 	}
@@ -25,12 +27,20 @@ public class TaskContent {
 		this.taskName = taskName;
 	}
 
-	public String gettName() {
-		return tName;
+	public int getTaskID() {
+		return taskID;
 	}
 
-	public void settName(String tName) {
-		this.tName = tName;
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getDeadline() {
@@ -48,5 +58,6 @@ public class TaskContent {
 	public void setText(String text) {
 		this.text = text;
 	}
+
 
 }
