@@ -52,17 +52,21 @@
 			if(resultList != null){
 			while(j < resultList.size()) {
 				UserIndex result = (UserIndex)resultList.get(j);
-				System.out.println(result.getUserID() + "," + result.getUser());
 					//ユーザの判定
 					int valLen = String.valueOf(result.getUserID()).length();
 					if(valLen == 8){
 						//教員
+						if(j == 0){
+							out.println("<form action=/TaskManage/Authority method=POST></form>");
+						}
+						out.println("<form action=/TaskManage/Authority method=POST");
 						out.println("<tr>");
 						out.println("<input type=hidden name=tID value=" + result.getUserID() + ">");
 						out.println("<td><input type=submit value=" + result.getUser() + "></td>"
 							+ "<td><input class=select_delete type=checkbox name=userID value="
 							+ result.getUserID() + "onClick=DisChecked();></td> ");
 						out.println("</tr>");
+						out.println("</form>");
 						j = j + 1;
 
 					}else if(valLen == 7){

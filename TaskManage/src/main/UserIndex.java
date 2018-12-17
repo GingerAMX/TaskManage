@@ -47,17 +47,7 @@ public class UserIndex extends HttpServlet {
 		String grade = request.getParameter("grade");
 		String cName = request.getParameter("cName");
 		String teacher = request.getParameter("teacher");
-		String tID = request.getParameter("tID");
 
-		//権限の確認
-		if(tID != null && "".equals(userID)){
-			String[] list = ManageDAO.authority(tID);
-			request.setAttribute("list", list);
-
-			String view = "/WEB-INF/view/Authority.jsp";
-			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-			dispatcher.forward(request, response);
-		}
 		//ユーザの削除
 		if(userID != null){
 			ManageDAO.userDelete(userID);

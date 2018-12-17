@@ -1124,4 +1124,98 @@ public class ManageDAO {
 		}
 		return list;
 	}
+	//権限の付与
+	public static void grant(String tID, String mPass) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "UPDATE Teacher SET mPass = ? WHERE tID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int id = Integer.parseInt(tID);
+
+			pstmt.setString(1, mPass);
+			pstmt.setInt(2, id);
+
+			pstmt.executeUpdate();
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+	}
+	//権限のはく奪
+	public static void takeOver(String takeover) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "UPDATE Teacher SET mPass = ? WHERE tID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int id = Integer.parseInt(takeover);
+
+			pstmt.setString(1, "");
+			pstmt.setInt(2, id);
+
+			pstmt.executeUpdate();
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+	}
 }

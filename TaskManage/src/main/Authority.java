@@ -40,13 +40,28 @@ public class Authority extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String tID = request.getParameter("tID");
+		String mPass = request.getParameter("mPass");
+		String takeover = request.getParameter("takeover");
 
-		//権限の確認
-		if(tID != null){
+		if(tID != null && mPass != null){				//権限の付与
+			ManageDAO.grant(tID,mPass);
+
+			String view = "/WEB-INF/view/UserIndex.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+
+		}else if(tID != null){							//権限の確認
 			String[] list = ManageDAO.authority(tID);
 			request.setAttribute("list", list);
 
 			String view = "/WEB-INF/view/Authority.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+
+		}else if(takeover != null){
+			ManageDAO.takeOver(takeover);
+
+			String view = "/WEB-INF/view/UserIndex.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}
