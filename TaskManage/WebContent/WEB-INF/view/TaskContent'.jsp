@@ -24,6 +24,9 @@
 	String b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
 	date[i] = b;
 
+	out.println("<form action=/TaskManage/TaskContent method=POST>"
+				+ "<input type=submit value=×>"
+				+ "<input type=hidden name=taskID value=" + result.getTaskID() + "></form>");
 
 	//課題内容詳細
 	out.println(result.getTaskName());
