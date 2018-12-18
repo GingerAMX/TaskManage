@@ -59,9 +59,9 @@ public class Register extends HttpServlet {
 			int result = ManageDAO.tRegister(tID,tName,tPass);
 		}
 
-//		String view = "/WEB-INF/view/Login.jsp";
-//		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-//		dispatcher.forward(request, response);
+		String view = "/WEB-INF/view/Login.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 
 }
