@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dto.Submitted" %>
 <%@ page import="dto.UnSubmitted" %>
+<%@ page import="dto.TaskContent" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,32 +16,47 @@
 
 		ArrayList<Submitted> submitted = (ArrayList<Submitted>)request.getAttribute("submitted");
 		ArrayList<UnSubmitted> unSubmitted = (ArrayList<UnSubmitted>)request.getAttribute("unSubmitted");
+		ArrayList<TaskContent> resultList = (ArrayList<TaskContent>)request.getAttribute("resultList");
 
-		//日付への変更
+		//日付への変更(課題内容)
 		int i = 0;
 		String[] date;
-		date = new String[30];
-		while(i < submitted.size()) {
-			Submitted result = (Submitted)submitted.get(i);
-			String a = Integer.toString(result.getDate());
-			String b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
-			date[i] = b;
-			i = i + 1;
+		date = new String[1];
+		TaskContent result1 = (TaskContent)resultList.get(0);
+		String a = Integer.toString(result1.getDeadline());
+		String b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
+		date[i] = b;
+
+		//日付への変更(提出日)
+		int j = 0;
+		String[] date2;
+		date2 = new String[60];
+		while(j < submitted.size()) {
+			Submitted result2 = (Submitted)submitted.get(j);
+			a = Integer.toString(result2.getDate());
+			b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
+			date2[i] = b;
+			j = j + 1;
 		}
 	%>
 
-	<% //提出者の一覧 %>
+	<%
+	//課題の情報
+		out.println(result1.getTaskName());
+		out.println(result1.getName());
+		out.println(date[0]);
+	//提出者の一覧 %>
 	<table border="1" align="center">
 		<tr>
 			<th>学籍番号</th><th>学生名</th><th>提出日</th>
 		</tr>
 		<%
-			int j = 0;
+			j = 0;
 			while(j < submitted.size()) {
 				Submitted result = (Submitted)submitted.get(j);
 				out.println("<tr>");
 				out.println("<td>" + result.getsID() +
-						"</td>" + "<td>" + result.getsName() + "</td>" + "<td>" + date[j] + "</td>");
+						"</td>" + "<td>" + result.getsName() + "</td>" + "<td>" + date2[j] + "</td>");
 				out.println("<tr>");
 				j = j + 1;
 			}

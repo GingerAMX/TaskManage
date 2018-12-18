@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import dto.DistributionIndex;
 import dto.Download;
+import dto.Login;
 import dto.Manager;
 import dto.Submitted;
 import dto.TaskContent;
@@ -245,6 +246,98 @@ public class ManageDAO {
 		}
 		return result;
 	}
+	//ログイン処理
+	public static ArrayList<Login> login(String ID, String pass) {
+		ArrayList<Login> resultList = new ArrayList<Login>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			int val = Integer.parseInt(ID);
+			int valLen = String.valueOf(val).length();
+
+			if(valLen == 7){							//学生の場合
+				String sql = "SELECT sID, sName, cID "
+						+ "FROM Students "
+						+ "WHERE sID = ? "
+						+ "AND pass = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, val);
+				pstmt.setString(2, pass);
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next() == true) {
+					int id = rs.getInt("sID");
+					String name = rs.getString("sName");
+					int cID = rs.getInt("cID");
+					resultList.add(new Login(id,name,cID));
+				}
+
+			}else if(valLen == 8){						//教員の場合
+				String sql = "SELECT tID, tName "
+						+ "FROM Teacher "
+						+ "WHERE tID = ? "
+						+ "AND pass = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, val);
+				pstmt.setString(2, pass);
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next() == true) {
+					int id = rs.getInt("tID");
+					String name = rs.getString("tName");
+					resultList.add(new Login(id,name,0));
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("JDBCドライバが見つかりません。");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("DBアクセス時にエラーが発生しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("DBアクセス時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
 	//配布されている課題一覧(学生)
 	public static ArrayList<TaskIndex> taskIndex(String cID) {
 		ArrayList<TaskIndex> resultList = new ArrayList<TaskIndex>();
@@ -335,12 +428,12 @@ public class ManageDAO {
 					+ "FROM Task "
 					+ "JOIN Class "
 					+ "ON Task.cID = Class.cID "
-					+ "AND Task.tID = 00000001 ";
+					+ "AND Task.tID = ?";
 
 			pstmt = con.prepareStatement(sql);
 
 			int Tid = Integer.parseInt(tID);
-			//pstmt.setInt(1, Tid);
+			pstmt.setInt(1, Tid);
 
 			rs = pstmt.executeQuery();
 

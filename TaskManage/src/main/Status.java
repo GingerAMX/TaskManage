@@ -39,6 +39,10 @@ public class Status extends HttpServlet {
 		String cID = "1";
 		String taskID = "2";
 
+		//課題の情報の取得
+		ArrayList<dto.TaskContent> result = ManageDAO.taskContent(taskID,8);
+		request.setAttribute("resultList", result);
+
 		//提出者の取得
 		ArrayList<Submitted> submitted = ManageDAO.submitted(taskID);
 		request.setAttribute("submitted", submitted);
