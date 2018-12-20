@@ -497,16 +497,16 @@ public class ManageDAO {
 					"Dai");
 
 			if(valLen == 7){
-				String sql = "SELECT Task.taskName, Task.taskID, Teacher.tName, Task.deadline, Task.text "
+				String sql = "SELECT Task.taskName, Task.taskID, Teacher.tName, Task.deadline, Task.text, Task.cID "
 						+ "FROM Task "
 						+ "JOIN Teacher "
 						+ "ON Task.tID = Teacher.tID "
-						+ "AND Task.taskID = 2";
+						+ "AND Task.taskID = ?";
 
 				pstmt = con.prepareStatement(sql);
 
 				int taskID = Integer.parseInt(taskid);
-				//pstmt.setInt(1, taskid);
+				pstmt.setInt(1, taskID);
 
 				rs = pstmt.executeQuery();
 
@@ -516,7 +516,8 @@ public class ManageDAO {
 					String name = rs.getString("tName");
 					String text = rs.getString("text");
 					int deadline = rs.getInt("deadline");
-					resultList.add(new TaskContent(taskName,taskID,name,deadline,text));
+					int cID = rs.getInt("cID");
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,cID));
 				}
 
 			}else if(valLen == 8){
@@ -529,7 +530,7 @@ public class ManageDAO {
 				pstmt = con.prepareStatement(sql);
 
 				int taskID = Integer.parseInt(taskid);
-				//pstmt.setInt(1, taskid);
+				pstmt.setInt(1, taskID);
 
 				rs = pstmt.executeQuery();
 
@@ -541,7 +542,7 @@ public class ManageDAO {
 					String name = grade + "年" + cName + "組";
 					String text = rs.getString("text");
 					int deadline = rs.getInt("deadline");
-					resultList.add(new TaskContent(taskName,taskID,name,deadline,text));
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,0));
 				}
 			}
 
@@ -1385,5 +1386,59 @@ public class ManageDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	public static String key(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
+					"Abe",
+					"Dai");
+
+			String sql = "SELECT cID FROM Students WHERE sID = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			int ID = Integer.parseInt(id);
+
+			pstmt.setInt(1, ID);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next() == true){
+				int cID = rs.getInt("cID");
+				String mid = Integer.toString(cID);
+				result = mid;
+			}
+
+		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null){
+					pstmt.close();
+				}
+			} catch(SQLException e){
+				System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+
+			try {
+				if( con != null){
+					con.close();
+				}
+			} catch (SQLException e){
+			System.out.println("DB切断時にエラーが発生しました。");
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 }

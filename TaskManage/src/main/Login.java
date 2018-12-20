@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,13 @@ public class Login extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String ID = request.getParameter("ID");
 		String pass = request.getParameter("pass");
+
+		Cookie cookie = new Cookie("id", ID);
+		cookie.setValue(ID);
+		  // 90日間有効なCookie
+		  cookie.setMaxAge(60 * 60 * 24 * 90);
+		 response.addCookie(cookie);
+
 		//ログイン処理
 		ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
 
@@ -59,6 +67,7 @@ public class Login extends HttpServlet {
 			ArrayList<TaskIndex> resultList = ManageDAO.taskIndex(cID);
 
 			request.setAttribute("resultList", resultList);
+			request.setAttribute("key", ID);
 
 			String view = "/WEB-INF/view/StudentsPage.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -70,6 +79,7 @@ public class Login extends HttpServlet {
 			ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(tID);
 
 			request.setAttribute("resultList", resultList);
+			request.setAttribute("key", ID);
 
 			String view = "/WEB-INF/view/TeacherPage.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);

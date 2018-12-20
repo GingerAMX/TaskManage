@@ -1,0 +1,538 @@
+/*==================全体設定====================*/
+/*ヘッダー設定*/
+header {
+    font-size: 20px;
+    height: 95px;
+}
+/*背景色設定*/
+body {
+    background-color: #EEEEEE;
+}
+/*ボタンホバー設定*/
+.square_btn:hover {
+    background: #668ad8;
+    color: #FFF;
+}
+.square_btn {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    color: #668ad8;
+    background: #e1f3ff;
+    transition: .4s;
+}
+header .square_btn {
+    margin-right: 80px;
+    font-size: 35px;
+    width: 180px;
+}
+/*=================ログイン画面=================*/
+/*ボックスを中央に*/
+.margin_login {
+    margin-left: 19%;
+}
+/*ボックス設定*/
+.box4 {
+    text-align: center;
+    padding: 20px 2px;
+    margin: 5% 9%;
+    color: #2c2c2f;
+    background: #cde4ff;
+    border-top: solid 5px #5989cf;
+    border-bottom: solid 5px #5989cf;
+    width: 50%;
+    height: 50%;
+    min-width: 450px;
+}
+/*ログイン,新規登録画面への文字間隔設定*/
+.box4 p {
+    margin: 10;
+    padding: 0;
+}
+/*ID入力項目サイズ*/
+.box4 input[type=text] {
+    font-size: 20
+}
+/*パスワード入力項目サイズ*/
+.box4 input[type=password] {
+    font-size: 20
+}
+/*ID,パスワード文字サイズ*/
+.box4 td {
+    font-size: 30px;
+    text-align: right;
+    min-width: 180px;
+
+}
+/*ボタン設定*/
+.box4 .square_btn {
+    width: 50%;
+    margin: 20px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    color: #668ad8;
+    background: #e1f3ff;
+    transition: .4s;
+    font-size: 150%;
+}
+/*ボタンホバー設定*/
+.square_btn:hover {
+    background: #668ad8;
+    color: #FFF;
+}
+/*================新規登録======================*/
+/*コンテンツを中央に*/
+.margin_registration {
+    margin-left: 18%;
+}
+/* ▼タブ */
+#tabcontrol a {
+   display: inline-block;            /* インラインブロック化 */
+   border-width: 1px 1px 0px 1px;    /* 下以外の枠線を引く */
+   border-style: solid;              /* 枠線の種類：実線 */
+   border-color: black;              /* 枠線の色：黒色 */
+   border-radius: 0.75em 0.75em 0 0; /* 枠線の左上角と右上角だけを丸く */
+   padding: 0.75em 1em;              /* 内側の余白 */
+   text-decoration: none;            /* リンクの下線を消す */
+   color: black;                     /* 文字色：黒色 */
+   background-color: white;          /* 背景色：白色 */
+   font-weight: bold;                /* 太字 */
+   position: relative;               /* JavaScriptでz-indexを調整するために必要 */
+}
+#tabcontrol a:hover {
+   text-decoration: underline;       /* 文字に下線を引く */
+}
+/* ▼タブの中身 */
+#tabbody div {
+   width: 780px;
+   height: 380px;
+   border: 1px solid black; /* 枠線：黒色の実線を1pxの太さで引く */
+   margin-top: -17px;        /* 上側にあるタブと重ねるために「-17px」を指定 */
+   padding: 1em;            /* 内側の余白量 */
+   background-color: white; /* 背景色：白色 */
+   position: relative;      /* z-indexを調整するために必要 */
+   z-index: 0;              /* 重なり順序を「最も背面」にするため */
+}
+#tabpage1 .select_btn {
+    font-size: 30;
+    width: 120;
+    height: 50;
+    margin: 0 0 0 170;
+}
+/* ▼タブの配色 */
+#tabcontrol a:nth-child(1), #tabbody div:nth-child(1) { background-color: #ffffdd;
+}/* 1つ目のタブとその中身用の配色 */
+#tabcontrol a:nth-child(2), #tabbody div:nth-child(2) { background-color: #CEF6CE;
+}/* 2つ目のタブとその中身用の配色 */
+
+/*タブ内文字サイズ変更*/
+#tabbody td {
+    padding: 0 20px 10px 10px;
+    font-size: 30px;
+}
+.registration_text {
+    font-size: 16px;
+}
+/*ボタン位置中央に*/
+sub {
+    margin: 150 0 0 160;
+}
+/*ボタン設定*/
+sub .square_btn {
+    text-align: center;
+    width: 50%;
+    height: 20%;
+    margin: 20px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    color: #668ad8;
+    background: #e1f3ff;
+    transition: .4s;
+    font-size: 150%;
+}
+/*===================課題詳細===================*/
+/*ボックス内の色を白で固定*/
+/*横幅、縦幅を変更*/
+.box{
+    background-color: #FFFFFF;
+    border: 2px solid ;
+    width: 760px;
+    height: 500px;
+}
+/*ボックス位置中央に*/
+.margin_box {
+    margin-left: 20%;
+}
+/*課題名、期限、提出先の横幅、縦幅*/
+.task {
+    height: 25%;
+    width: 100%;
+    border-collapse: collapse;
+}
+/*課題名、期限、提出先の文字に線引き*/
+/*taskクラス内の横幅設定*/
+.task th {
+    width: 17%;
+    border: 1px solid;
+}
+/*課題名、期限、提出先の中身設定*/
+.task td {
+    width: 80%;
+    border: 1px solid ;
+    font-size: 20px;
+}
+.box .textarea {
+    font-size: 30px;
+    margin: auto;
+}
+/*内容の横幅、縦幅設定*/
+.box .detail {
+    height: 60%;
+    font-size: 30px;
+    margin: 10 10 0 40;
+}
+/*テキストフィールド横幅、縦幅設定*/
+.box input[type=url] {
+    width: 100%;
+    height: 85%;
+}
+/*矢印、提出画面の間隔設定*/
+.margin {
+    margin: auto 15%;
+}
+/*ボタン設定*/
+.margin .square_btn {
+    font-size: 30px;
+}
+/*=================課題一覧=====================*/
+.box2 {
+    background-color: #FFFFFF;
+    border: 2px solid ;
+    width: 1000px;
+    height: 83%;
+}
+/*ボックス位置中央に*/
+.margin_box2 {
+    margin-left: 10%;
+}
+thead.task_thead,tbody.task_tbody {
+    width: 100%;
+    display:block;
+    font-size: 20px;
+}
+tbody.task_tbody {
+    overflow-y: scroll;
+    height: 469px;
+}
+table.content_tablelock1 td,th {
+    table-layout: fixed;
+    border: 1px solid;
+    text-align: center;
+}
+table.content_tablelock1 .TaskID {
+    max-width: 135;
+    min-width: 135px;
+}
+table.content_tablelock1 .TaskName {
+    max-width: 410px;
+    min-width: 410px;
+}
+table.content_tablelock1 .DeadLine {
+    max-width: 180px;
+    min-width: 180px;
+}
+table.content_tablelock1 .SubMission {
+    max-width: 200px;
+    min-width: 200px;
+}
+table.content_tablelock1 .BUTTON {
+    max-width: 60px;
+    min-width: 60px;
+}
+table.content_tablelock1 {
+    border-collapse: collapse;
+    border: 1px solid;
+}
+table.content_tablelock1 th {
+    background: #ccc;
+    padding: 10px 2 10 0
+}
+/*================課題提出=====================*/
+}
+.margin_submission {
+    margin-left: 300px;
+}
+.submission_font {
+    font-size: 50px;
+}
+.box4 #task_submission {
+    width: 500px;
+    font-size: 22px;
+    border: 1px solid;
+    background: #FFFFFF;
+}
+.submission_margin {
+    margin: 80 0 0 0;
+}
+.submission_margin .square_btn {
+    font-size: 32px;
+    width: 80px;
+    height: 40px;
+}
+/*================配布中の課題==================*/
+.header_teacher_main .square_btn {
+    height: 65;
+    width: 300;
+    font-size: 35px;
+    margin-right: 20;
+}
+.box3 {
+    background-color: #FFFFFF;
+    border: 2px solid ;
+    width: 950px;
+    height: 85%;
+}
+table.content_tablelock1 .Grade_Class {
+    max-width: 150px;
+    min-width: 150px;
+}
+.content_task {
+    width: 1300px;
+}
+.content_task2 {
+    float: left;
+    width: 1000px;
+}
+.content_task3 {
+    float: right;
+    width: 300px;
+}
+
+.square_btn {
+    text-align: center;
+    width:auto;
+    height:auto;
+    margin: 0px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    color: #668ad8;
+    background: #e1f3ff;
+    transition: .4s;
+}
+/*右側のサイズ指定*/
+
+.task_acquisition {
+    height: 90px;
+}
+.manager_login {
+    height: 145px;
+}
+.logout {
+    margin-top: 20;
+    height: 93px
+}
+/*ここまで*/
+.task_distribution .square_btn {
+    height: 65;
+    width: 300;
+    font-size: 35px;
+    text-align: center;
+}
+.task_acquisition .square_btn {
+    height: 65;
+    width: 300;
+    font-size: 35px;
+}
+/*管理者ログインボックス設定*/
+.manager_login_box {
+    background-color: #FFFFFF;
+    border: 2px solid #333;
+    width: 330px;
+}
+/*管理者ログインフォント設定*/
+.manager_login h1 {
+    font-size: 20px;
+}
+.manager_login p {
+    font-size: 30;
+}
+.manager_login input[type=password] {
+    font-size: 25;
+}
+.manager_login .square_btn {
+    font-size: 30;
+
+}
+.task_distribution {
+    margin: 10 0;
+}
+.task_acquisition {
+    margin: 10 0 0;
+}
+.login_margin {
+    margin: 0 0 10 90;
+}
+/*=====================課題提出状況=======================*/
+.task_status {
+    height: 60%;
+    width: 100%;
+}
+.intro_margin {
+    margin-top: 10;
+    margin-left: 50;
+}
+.introduction {
+    float: left;
+    width: 50%;
+}
+.no_introduction {
+    float: right;
+    width: 38%;
+}
+thead.task_thead2,tbody.task_tbody2,.task_thead3,tbody.task_tbody3 {
+    width: 100%;
+    display:block;
+    font-size: 20px;
+}
+tbody.task_tbody2,.task_tbody3 {
+    overflow-y: scroll;
+    height: 250px;
+}
+table.content_tablelock2 td,th,.content_tablelock3 td,th {
+    table-layout: fixed;
+    border: 1px solid;
+    text-align: center;
+}
+table.content_tablelock2 .Task_Distribution, .content_tablelock2 .Submission_Day,.content_tablelock3 .No_Submission{
+    max-width: 200px;
+    min-width: 200px;
+}
+table.content_tablelock2 .Distribution_Number,.content_tablelock3 .No_Submission_Number {
+    max-width: 110px;
+    min-width: 110px
+}
+table.content_tablelock2,.content_tablelock3 {
+    border-collapse: collapse;
+    border: 1px solid;
+}
+table.content_tablelock2 th,.content_tablelock3 th {
+    background: #ccc;
+    padding: 2 2 2 0
+}
+.margin_top .square_btn {
+    font-size: 33px;
+    margin: auto 100
+}
+.margin_top {
+    margin :0 0;
+    text-align: center;
+}
+/*========================教師側の課題内容================*/
+.teacher_detail_margin {
+    margin-left: 5%;
+    width: 100%;
+}
+.teacher_detail1 {
+
+    float: left;
+    text-align: center;
+    width: 30%;
+    font-size: 30px;
+}
+.teacher_detail2 {
+    float: left;
+    width: 30%;
+    font-size: 30px;
+}
+.teacher_detail3 {
+    float: left;
+    width: 30%;
+    font-size: 30px;
+}
+
+
+/*===============ユーザ管理画面==================*/
+.management_margin {
+    margin: 60 0 0 250
+}
+.management_box {
+    width: 800px;
+    height: 450px;
+    border: 2px solid;
+    background-color: #FFFFFF;
+}
+.select_font .select_btn {
+    font-size: 30;
+    width: 150;
+    height: 60;
+    margin : 10 0 0 25
+}
+.select_font .square_btn {
+    font-size: 30;
+    width: 120;
+    height: 50;
+    margin: 0 0 0 24
+}
+.namelist2 .square_btn {
+    font-size: 30;
+    width: 120;
+    height: 50;
+}
+.namelist_margin {
+    width: 100%;
+
+}
+.namelist1 {
+    float: left;
+    width: 60%;
+    margin: 10 0 0 20;
+}
+.namelist2 {
+    float: right;
+    width: 27.1%;
+    margin: 40 0 10;
+}
+.delete_font_margin {
+    margin-top: 40;
+}
+.namelist_box {
+    background-color: #FFFFFF;
+    border: 2px solid ;
+    height: 370px;
+    width: 500px;
+    overflow: scroll;
+}
+.namelist_box table {
+    border-collapse: collapse;
+    width: 483px;
+}
+.namelist_box td{
+    font-size: 40px;
+    border-bottom: 1px solid;
+
+}
+.select_delete {
+    width: 30px;
+    height: 40px;
+    float: right;
+
+}

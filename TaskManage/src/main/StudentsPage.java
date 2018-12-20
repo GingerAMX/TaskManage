@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +50,33 @@ public class StudentsPage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String ID = request.getParameter("ID");
+		String pass = request.getParameter("pass");
+
+		// 存在しなければnullとなる
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			System.out.println(cookie.getName() + ":" + cookie.getValue());
+		}
+
+		//ログイン処理
+		ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
+
+		dto.Login mid = (dto.Login)result.get(0);
+		int id = mid.getId();
+		int idLen = String.valueOf(id).length();
+
+		String cID = Integer.toString(mid.getcID());
+
+		ArrayList<TaskIndex> resultList = ManageDAO.taskIndex(cID);
+
+		request.setAttribute("resultList", resultList);
+		request.setAttribute("key", ID);
+
+		String view = "/WEB-INF/view/StudentsPage.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 
 }

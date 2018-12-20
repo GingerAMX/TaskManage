@@ -30,33 +30,37 @@ public class Submit extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String taskID = request.getParameter("taskID");
-		//String cID = request.getParameter("cID");
-		//String sID = request.getParameter("sID");
+		String taskID = request.getParameter("taskID");
+		String sID = request.getParameter("userID");
 
-		//仮の値
-		String cID = "1";
-		String sID = "4171201";
-		String taskID = "2";
+		String cID = ManageDAO.key(sID);
+
+		String[] key = new String[3];
+		key[0] = taskID;
+		key[1] = sID;
+
+		request.setAttribute("key", key);
 
 		//ファイルパスの取得
 		Part part = request.getPart("file");
-    	String name = this.getFileName(part);
-    	System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
+		if(part != null){
+	    	String name = this.getFileName(part);
+	    	System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
-    	//ファイルの保存 パス変更箇所(サーバ接続時)
-        try {
-        part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
+	    	//ファイルの保存 パス変更箇所(サーバ接続時)
+	        try {
+	        part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
 
-        }
-        catch( IOException e){
-        	System.out.println("ファイル出力error");
-        	e.printStackTrace();
-        }
-        String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
+	        }
+	        catch( IOException e){
+	        	System.out.println("ファイル出力error");
+	        	e.printStackTrace();
+	        }
+	        String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
 
-        //DAOにデータの送信
-        ManageDAO.submit(taskID,cID,sID,textPath);
+	        //DAOにデータの送信
+	        ManageDAO.submit(taskID,cID,sID,textPath);
+		}
 
         //jspファイルへ
         String view = "/WEB-INF/view/Submit.jsp";

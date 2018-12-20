@@ -34,14 +34,14 @@ public class Status extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String cID = request.getParameter("cID");
-		//String taskID = request.getParameter("taskID");
-		String cID = "1";
-		String taskID = "2";
+		String taskID = request.getParameter("taskID");
 
 		//課題の情報の取得
 		ArrayList<dto.TaskContent> result = ManageDAO.taskContent(taskID,8);
 		request.setAttribute("resultList", result);
+
+		dto.TaskContent mid = (dto.TaskContent)result.get(0);
+		String cID = Integer.toString(mid.getcID());
 
 		//提出者の取得
 		ArrayList<Submitted> submitted = ManageDAO.submitted(taskID);
