@@ -6,6 +6,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +31,50 @@ public class Submit extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String taskID = request.getParameter("taskID");
-		String sID = request.getParameter("userID");
+		Cookie cookie;
+		int id = 0;
+		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 1) {
+			for (Cookie c : cookies) {
+				// idというcookieがあるか
+				if (c.getName().equals("id")) {
+					id = Integer.parseInt(c.getValue());
+					// 新しくidをキーにしてCookieを生成する
+					cookie = new Cookie("id", String.valueOf(id));
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
+
+		int task = 0;
+		cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 1) {
+			for (Cookie c : cookies) {
+				// taskというcookieがあるか
+				if (c.getName().equals("task")) {
+					task = Integer.parseInt(c.getValue());
+					// 新しくtaskをキーにしてCookieを生成する
+					cookie = new Cookie("task", String.valueOf(task));
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
+		String taskID = Integer.toString(task);
+		String sID = Integer.toString(id);
 
 		String cID = ManageDAO.key(sID);
 
-		String[] key = new String[3];
+		String[] key = new String[2];
 		key[0] = taskID;
 		key[1] = sID;
 

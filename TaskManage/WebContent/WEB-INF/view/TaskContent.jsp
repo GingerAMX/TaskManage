@@ -71,8 +71,6 @@
 				<a href="#" class="square_btn" style="float: left">←</a>
 				<%
 				out.println("<from action=\"/TaskManage/Submit \" method=\"POST\">");
-				out.println("<input type=\"hidden\" name=\"userID\"" + key[0] + ">");
-				out.println("<input type=\"hidden\" name=\"taskID\"" + key[1] + ">");
 				out.println("<input type=\"submit\" value=\"提出画面へ\" class=\"square_btn\" style=\"float: right\">");
 				out.println("</from>");
 				%>

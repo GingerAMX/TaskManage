@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,11 +40,43 @@ public class Authority extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		Boolean flg = false;
 		String tID = request.getParameter("tID");
 		String mPass = request.getParameter("mPass");
 		String takeover = request.getParameter("takeover");
+		if(takeover != null){
+			flg = Boolean.valueOf(takeover);
+		}
+		Cookie cookie;
 
-		if(tID != null && mPass != null){				//権限の付与
+		if(tID != null){
+			cookie = new Cookie("teacher", tID);
+			cookie.setMaxAge(60 * 60 * 24 * 90);
+			response.addCookie(cookie);
+		}
+
+		int id = 0;
+		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 0) {
+			for (Cookie c : cookies) {
+				// teacherというcookieがあるか
+				if (c.getName().equals("teacher")) {
+					id = Integer.parseInt(c.getValue());
+					// 新しくteacherをキーにしてCookieを生成する
+					cookie = new Cookie("teacher", String.valueOf(id));
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
+
+		String ID = Integer.toString(id);
+
+		if(ID != null && mPass != null){				//権限の付与
 			ManageDAO.grant(tID,mPass);
 
 			String view = "/WEB-INF/view/UserIndex.jsp";
@@ -58,8 +91,8 @@ public class Authority extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 
-		}else if(takeover != null){
-			ManageDAO.takeOver(takeover);
+		}else if(flg != false){
+			ManageDAO.takeOver(ID);
 
 			String view = "/WEB-INF/view/UserIndex.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);

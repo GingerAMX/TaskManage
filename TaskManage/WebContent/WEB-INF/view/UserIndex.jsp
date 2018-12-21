@@ -62,6 +62,7 @@
 												}
 												out.println("<form action=/TaskManage/Authority method=POST");
 												out.println("<tr>");
+												//hidden
 												out.println("<input type=hidden name=tID value=" + result.getUserID() + ">");
 												out.println("<td><input type=submit value=" + result.getUser() + "></td>"
 													+ "<td><input class=select_delete type=checkbox name=userID value="

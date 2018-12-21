@@ -48,11 +48,11 @@ public class Login extends HttpServlet {
 		String ID = request.getParameter("ID");
 		String pass = request.getParameter("pass");
 
-		Cookie cookie = new Cookie("id", ID);
-		cookie.setValue(ID);
-		  // 90日間有効なCookie
-		  cookie.setMaxAge(60 * 60 * 24 * 90);
-		 response.addCookie(cookie);
+		Cookie cookie = null;// Cookie変数を宣言
+		// 新しくCookieを生成
+		cookie = new Cookie("id", ID);
+		cookie.setMaxAge(60 * 60 * 24 * 90);
+		response.addCookie(cookie);
 
 		//ログイン処理
 		ArrayList<dto.Login> result = ManageDAO.login(ID,pass);

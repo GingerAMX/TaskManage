@@ -61,9 +61,8 @@
                 </div>
                 <div class="teacher_detail2">
 	                <%
-	                out.println("<form action=/TaskManage/Status method=POST>"
-					+ "<input type=submit value=提出状況へ>"
-					+ "<input type=hidden name=taskID value=" + result.getTaskID() + "></form>");
+	                out.println("<form action=/TaskManage/Status method=GET>"
+					+ "<input type=submit value=提出状況へ></form>");
 	                %>
                 </div>
                 <div class="teacher_detail3">

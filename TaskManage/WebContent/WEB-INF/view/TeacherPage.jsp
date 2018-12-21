@@ -15,7 +15,6 @@
 	<%
 		request.setCharacterEncoding("UTF-8");
 		ArrayList<DistributionIndex> resultList = (ArrayList<DistributionIndex>) request.getAttribute("resultList");
-		String key = (String)request.getAttribute("key");
 		//日付への変更
 		int i = 0;
 		String[] date;
@@ -61,8 +60,8 @@
 									out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\"></form>");
 								}
 								out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
+								//hidden
 								out.println("<input type=\"hidden\" name=\"taskID\" value=" + result.getTaskID() + ">");
-								out.println("<input type=\"hidden\" name=\"userID\" value=" + key + ">");
 								out.println("<tr>");
 								out.println("<td class=\"TaskID\">" + result.getTaskID() + "</td>"
 										+ "<td class=\"TaskName\">" + result.getTaskName() + "</td>"
@@ -86,7 +85,7 @@
 				</form>
 			</div>
 			<div class="task_acquisition">
-				<form action="/TaskManage/Distribute" method="POST">
+				<form action="/TaskManage/Distribute" method="GET">
 					<input type="submit" class="square_btn" value="ファイル取得">
 				</form>
 			</div>
@@ -94,7 +93,6 @@
 				<div class="manager_login_box">
 					<h1>管理者ログイン</h1>
 					<form action="/TaskManage/ManagerPage" method="POST">
-						<% out.println("<input type=\"hidden\" name=\"userID\" value=" + key + ">"); %>
 						<p>
 							管理者パスワード：<label><input type="password" name="pass"></label>
 						</p>

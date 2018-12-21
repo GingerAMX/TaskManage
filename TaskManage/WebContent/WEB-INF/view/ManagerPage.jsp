@@ -62,7 +62,6 @@
 								}
 								out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
 								out.println("<input type=\"hidden\" name=\"taskID\" value=" + result.getTaskID() + ">");
-								out.println("<input type=\"hidden\" name=\"userID\" value=" + key + ">");
 								out.println("<tr>");
 								out.println("<td class=\"TaskID\">" + result.getTaskID() + "</td>"
 										+ "<td class=\"TaskName\">" + result.getTaskName() + "</td>"
