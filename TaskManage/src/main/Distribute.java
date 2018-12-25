@@ -46,10 +46,11 @@ public class Distribute extends HttpServlet {
 		String grade = request.getParameter("grade");
 		String cName = request.getParameter("cName");
 		String deadline = request.getParameter("deadline");
-//		String tID = request.getParameter("tID");
-		String tID = "20181214";
+		String tID = request.getParameter("tID");
 
-		ManageDAO.distribute(taskName,content,tID,grade,cName,deadline);
+		if(taskName != null && content != null && tID != null){
+			ManageDAO.distribute(taskName,content,tID,grade,cName,deadline);
+		}
 
 		String view = "/WEB-INF/view/Distribute.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);

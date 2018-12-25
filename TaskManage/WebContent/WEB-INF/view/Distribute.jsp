@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>課題配布</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/task_distribution.css">
 </head>
 <body>
 <header>
+	<a href="#" class="square_btn"style="float:right">ログアウト</a>
 	<h1>課題配布</h1>
 	<hr>
 </header>
@@ -15,7 +16,7 @@
 		<div class="task_distribution_margin">
 			<div class="box">
 				<form action="/TaskManage/Distribute" method="POST">
-					<p class="taskName"><label>課題名 :<input type="text" class="name" name="taskName"></label></p>
+					<p class="task_name"><label>課題名 :<input type="text" class="name" name="taskName"></label></p>
 					<textarea class ="textarea2" name="content" rows="10" cols="75" placeholder="課題内容"></textarea>
 					<p class="Distribution"><label for="pref">配布先 : </label>
 	                <select name="grade" class="pref">

@@ -6,17 +6,19 @@ public class TaskContent {
 	private String name;
 	private int deadline;
 	private String text;
+	private int cID;
 
 	public TaskContent(){
 
 	}
 
-	public TaskContent(String taskName, int taskID, String name, int deadline, String text) {
+	public TaskContent(String taskName, int taskID, String name, int deadline, String text, int cID) {
 		this.taskName = taskName;
 		this.taskID = taskID;
 		this.name = name;
 		this.deadline = deadline;
 		this.text = text;
+		this.cID = cID;
 	}
 
 	public String getTaskName() {
@@ -57,6 +59,14 @@ public class TaskContent {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public int getcID() {
+		return cID;
+	}
+
+	public void setcID(int cID) {
+		this.cID = cID;
 	}
 
 
