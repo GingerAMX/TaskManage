@@ -53,21 +53,63 @@ public class StudentsPage extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String ID = request.getParameter("ID");
 		String pass = request.getParameter("pass");
+		String cID = null;
 
-		// 存在しなければnullとなる
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			System.out.println(cookie.getName() + ":" + cookie.getValue());
+		int id=0;
+		Cookie cookie;
+		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 0) {
+			for (Cookie c : cookies) {
+				// idというcookieがあるか
+				if (c.getName().equals("id")) {
+					id = Integer.parseInt(c.getValue());
+					// 新しくidをキーにしてCookieを生成する
+					cookie = new Cookie("id", String.valueOf(id));
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
+				}
+			}
 		}
 
-		//ログイン処理
-		ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
+		if(pass == null){
+			pass = null;
+			cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+			//Cookieが送信されていた場合
+			if (cookies.length != 0) {
+				for (Cookie c : cookies) {
+					// classというcookieがあるか
+					if (c.getName().equals("class")) {
+						cID = c.getValue();
+						// 新しくclassをキーにしてCookieを生成する
+						cookie = new Cookie("class", cID);
+						// cookieの有効期限を秒で設定(下は90日)
+						cookie.setMaxAge(60 * 60 * 24 * 90);
+						// レスポンスヘッダーにcookieを詰める
+						response.addCookie(cookie);
+						break;
+					}
+				}
+			}
+		}
 
-		dto.Login mid = (dto.Login)result.get(0);
-		int id = mid.getId();
-		int idLen = String.valueOf(id).length();
+		if(ID != null && pass != null){
+			//ログイン処理
+			ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
 
-		String cID = Integer.toString(mid.getcID());
+			dto.Login mid = (dto.Login)result.get(0);
+			int cid = mid.getId();
+			int cidLen = String.valueOf(cid).length();
+
+			cID = Integer.toString(mid.getcID());
+
+			cookie = new Cookie("class", cID);
+			cookie.setMaxAge(60 * 60 * 24 * 90);
+			response.addCookie(cookie);
+		}
 
 		ArrayList<TaskIndex> resultList = ManageDAO.taskIndex(cID);
 

@@ -18,10 +18,12 @@ import dao.ManageDAO;
  * Servlet implementation class Submit
  */
 @WebServlet("/Submit")
-@MultipartConfig(location="c:/tmp", maxFileSize=1048576)
+@MultipartConfig(location = "c:/tmp", maxFileSize = 1048576)
 public class Submit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "/WEB-INF/view/Submit.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -29,13 +31,14 @@ public class Submit extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Cookie cookie;
 		int id = 0;
-		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
-		//Cookieが送信されていた場合
-		if (cookies.length != 1) {
+		Cookie[] cookies = request.getCookies();// 送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		// Cookieが送信されていた場合
+		if (cookies.length != 0) {
 			for (Cookie c : cookies) {
 				// idというcookieがあるか
 				if (c.getName().equals("id")) {
@@ -52,8 +55,8 @@ public class Submit extends HttpServlet {
 		}
 
 		int task = 0;
-		cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
-		//Cookieが送信されていた場合
+		cookies = request.getCookies();// 送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		// Cookieが送信されていた場合
 		if (cookies.length != 1) {
 			for (Cookie c : cookies) {
 				// taskというcookieがあるか
@@ -80,43 +83,42 @@ public class Submit extends HttpServlet {
 
 		request.setAttribute("key", key);
 
-		//ファイルパスの取得
+		// ファイルパスの取得
 		Part part = request.getPart("file");
-		if(part != null){
-	    	String name = this.getFileName(part);
-	    	System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
+		if (part != null) {
+			String name = this.getFileName(part);
+			System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
-	    	//ファイルの保存 パス変更箇所(サーバ接続時)
-	        try {
-	        part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
+			// ファイルの保存 パス変更箇所(サーバ接続時)
+			try {
+				part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
 
-	        }
-	        catch( IOException e){
-	        	System.out.println("ファイル出力error");
-	        	e.printStackTrace();
-	        }
-	        String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
+			} catch (IOException e) {
+				System.out.println("ファイル出力error");
+				e.printStackTrace();
+			}
+			String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
 
-	        //DAOにデータの送信
-	        ManageDAO.submit(taskID,cID,sID,textPath);
+			// DAOにデータの送信
+			ManageDAO.submit(taskID, cID, sID, textPath);
 		}
 
-        //jspファイルへ
-        String view = "/WEB-INF/view/Submit.jsp";
+		// jspファイルへ
+		String view = "/WEB-INF/view/Submit.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
-    }
+	}
 
-    private String getFileName(Part part) {
-        String name = null;
-        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
-            if (dispotion.trim().startsWith("filename")) {
-                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
-                name = name.substring(name.lastIndexOf("\\") + 1);
-                break;
-            }
-        }
-        return name;
-    }
+	private String getFileName(Part part) {
+		String name = null;
+		for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+			if (dispotion.trim().startsWith("filename")) {
+				name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+				name = name.substring(name.lastIndexOf("\\") + 1);
+				break;
+			}
+		}
+		return name;
+	}
 
 }
