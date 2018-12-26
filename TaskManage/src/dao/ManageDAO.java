@@ -525,7 +525,7 @@ public class ManageDAO {
 						+ "FROM Task "
 						+ "JOIN Class "
 						+ "ON Task.cID = Class.cID "
-						+ "AND Task.taskID = 2";
+						+ "AND Task.taskID = ?";
 
 				pstmt = con.prepareStatement(sql);
 

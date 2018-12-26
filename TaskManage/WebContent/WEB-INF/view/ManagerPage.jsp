@@ -85,7 +85,7 @@
 				</form>
 			</div>
 			<div class="task_acquisition">
-				<form action="/TaskManage/Distribute" method="POST">
+				<form action="/TaskManage/Download" method="POST">
 					<input type="submit" class="square_btn" value="ファイル取得">
 				</form>
 			</div>

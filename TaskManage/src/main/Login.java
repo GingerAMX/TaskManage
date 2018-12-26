@@ -34,6 +34,41 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//cookieの削除
+		Cookie cookies[] = request.getCookies();
+        for ( Cookie cookie : cookies) {
+                if ("id".equals(cookie)) {					//id
+                        cookie.setMaxAge(0);
+                        cookie.setValue("");
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                }
+        }
+
+        for ( Cookie cookie : cookies) {
+            if ("pass".equals(cookie)) {					//pass
+                    cookie.setMaxAge(0);
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+            }
+        }
+        for ( Cookie cookie : cookies) {
+            if ("task".equals(cookie)) {					//task
+                    cookie.setMaxAge(0);
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+            }
+        }
+        for ( Cookie cookie : cookies) {
+            if ("teacher".equals(cookie)) {					//teacher
+                    cookie.setMaxAge(0);
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+            }
+        }
 		request.setCharacterEncoding("UTF-8");
 		String view = "/WEB-INF/view/Login.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
