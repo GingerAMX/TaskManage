@@ -68,12 +68,14 @@
 					</textarea></label>
 			</p>
 			<div class="margin">
-				<a href="#" class="square_btn" style="float: left">←</a>
-				<%
+			<%
+				out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
+	        	out.println("<input type=\"submit\" value=\"←\">");
+	        	out.println("</form>");
 				out.println("<from action=\"/TaskManage/Submit \" method=\"POST\">");
 				out.println("<input type=\"submit\" value=\"提出画面へ\" class=\"square_btn\" style=\"float: right\">");
 				out.println("</from>");
-				%>
+			%>
 			</div>
 		</div>
 	</div>

@@ -49,7 +49,7 @@ public class ManagerPage extends HttpServlet {
 		Cookie cookie;
 		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
 		//Cookieが送信されていた場合
-		if (cookies.length != 1) {
+		if (cookies.length != 0) {
 			for (Cookie c : cookies) {
 				// idというcookieがあるか
 				if (c.getName().equals("id")) {
@@ -61,6 +61,27 @@ public class ManagerPage extends HttpServlet {
 					// レスポンスヘッダーにcookieを詰める
 					response.addCookie(cookie);
 					break;
+				}
+			}
+		}
+
+		if(pass == null){
+			pass = null;
+			cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+			//Cookieが送信されていた場合
+			if (cookies.length != 0) {
+				for (Cookie c : cookies) {
+					// passというcookieがあるか
+					if (c.getName().equals("pass")) {
+						pass = c.getValue();
+						// 新しくpassをキーにしてCookieを生成する
+						cookie = new Cookie("pass", pass);
+						// cookieの有効期限を秒で設定(下は90日)
+						cookie.setMaxAge(60 * 60 * 24 * 90);
+						// レスポンスヘッダーにcookieを詰める
+						response.addCookie(cookie);
+						break;
+					}
 				}
 			}
 		}

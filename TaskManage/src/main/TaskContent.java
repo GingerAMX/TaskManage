@@ -43,7 +43,7 @@ public class TaskContent extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String taskID = request.getParameter("taskID");
 		String tID = request.getParameter("tID");
-		String[] key = new String[2];
+		String[] key = new String[3];
 
 		Cookie cookie = null;// Cookie変数を宣言
 		// 新しくCookieを生成
@@ -74,9 +74,29 @@ public class TaskContent extends HttpServlet {
 			}
 		}
 
+		String pass = null;
+		cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 0) {
+			for (Cookie c : cookies) {
+				// passというcookieがあるか
+				if (c.getName().equals("pass")) {
+					pass = c.getValue();
+					// 新しくpassをキーにしてCookieを生成する
+					cookie = new Cookie("pass", pass);
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
+
 		String ID = Integer.toString(id);
 		key[0] = ID;
 		key[1] = taskID;
+		key[2] = pass;
 
 		if(id != 0){
 			int valLen = String.valueOf(id).length();

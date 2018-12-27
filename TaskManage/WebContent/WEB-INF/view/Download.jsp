@@ -19,6 +19,11 @@
 		<p>クラス）：<label><input type="text" name="class"></label></p>
 		<input type="submit" value="検索">
 	</form>
-	<% out.println("<a href=" + zipPath + " download>download</a>");%>
+	<%
+		out.println("<a href=" + zipPath + " download>download</a>");
+		out.println("<form action=\"/TaskManage/Status\" method=\"POST\">");
+	    out.println("<input type=\"submit\" value=\"←\">");
+	    out.println("</form>");
+	%>
 </body>
 </html>

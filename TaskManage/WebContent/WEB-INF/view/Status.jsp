@@ -80,5 +80,10 @@
 		}
 	%>
 	</table>
+	<%
+		out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
+	    out.println("<input type=\"submit\" value=\"←\">");
+	    out.println("</form>");
+	%>
 </body>
 </html>

@@ -57,7 +57,16 @@
                </textarea></label></p>
             <div class="teacher_detail_margin">
                 <div class="teacher_detail1">
-                   <a href="#" class="square_btn"style="float: left">←</a>
+                <%
+                	if(key[2] != null){
+                		out.println("<form action=\"/TaskManage/ManagerPage\" method=\"POST\">");
+                		out.println("<input type=\"submit\" value=\"←\">");
+                		out.println("</form>");
+                	}
+                	out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
+                	out.println("<input type=\"submit\" value=\"←\">");
+                	out.println("</form>");
+                %>
                 </div>
                 <div class="teacher_detail2">
 	                <%
