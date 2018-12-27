@@ -25,7 +25,7 @@
 	date[i] = b;
 	%>
     <header>
-        <a href="#" class="square_btn"style="float: right">ログアウト</a>
+        <a href="/TaskManage/Login" class="square_btn"style="float: right">ログアウト</a>
         <h1>課題詳細</h1>
         <hr>
     </header>
