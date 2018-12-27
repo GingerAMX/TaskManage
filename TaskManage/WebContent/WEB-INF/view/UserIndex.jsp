@@ -92,7 +92,7 @@
 						<div class="delete_font_margin">
 							<%
 								out.println("<form action=\"/TaskManage/ManagerPage\" method=\"POST\">");
-								out.println("<input type=\"submit\" value=\"←\">");
+								out.println("<input type=\"submit\"class=\"square_btn\" value=\"←\">");
 								out.println("</form>");
 							%>
 						</div>

@@ -90,7 +90,7 @@
 				</form>
 			</div>
 			<form action="/TaskManage/UserIndex" method="POST">
-				<input type="submit" value="ユーザ管理">
+				<input type="submit" class="square_btn" value="ユーザ管理">
 			</form>
 		</div>
 	</div>

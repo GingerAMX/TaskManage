@@ -23,12 +23,12 @@
 		                    <input type="file" id="task_submission"name="file" required >
 		                </label>
 		            </p>
-		            <input class="square_btn" type="submit" style="width:150px;height:78px;" value="提出">
+					<input class="square_btn" type="submit" style="width:130px;height:70px;" value="提出">
 				</form>
 		        <div class="submission_margin">
 				<%
 					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-				    out.println("<input type=\"submit\" value=\"←\">");
+				    out.println("<input type=\"submit\" class=\"square_btn\" style=\"width:130px;height:70px;\" value=\"←\">");
 				    out.println("</form>");
 				%>
 		        </div>
