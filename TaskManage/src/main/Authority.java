@@ -48,24 +48,22 @@ public class Authority extends HttpServlet {
 			flg = Boolean.valueOf(takeover);
 		}
 
-		Cookie cookie = null;
+		Cookie cookie;
 		if(tID != null){
 			cookie = new Cookie("teacher", tID);
 			cookie.setMaxAge(60 * 60 * 24 * 90);
 			response.addCookie(cookie);
-			System.out.println(tID + "残念！！");
 		}
 
 		int id = 0;
 		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
 		//Cookieが送信されていた場合
-		if("".equals(tID)){
+		if(tID == null){
 			if (cookies.length != 0) {
 				for (Cookie c : cookies) {
 					// teacherというcookieがあるか
 					if (c.getName().equals("teacher")) {
 						id = Integer.parseInt(c.getValue());
-						System.out.println(id);
 						// 新しくteacherをキーにしてCookieを生成する
 						cookie = new Cookie("teacher", String.valueOf(id));
 						// cookieの有効期限を秒で設定(下は90日)
@@ -97,7 +95,6 @@ public class Authority extends HttpServlet {
 
 		}else if(flg = true){
 			ManageDAO.takeOver(ID);
-			System.out.println(ID + "です");
 
 			String view = "/WEB-INF/view/UserIndex.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
