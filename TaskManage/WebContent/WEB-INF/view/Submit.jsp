@@ -26,11 +26,9 @@
 		            <input class="square_btn" type="submit" style="width:150px;height:78px;" value="提出">
 				</form>
 		        <div class="submission_margin">
-				<%
-					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-				    out.println("<input type=\"submit\" value=\"←\">");
-				    out.println("</form>");
-				%>
+					<form action="/TaskManage/TaskContent" method="POST">
+						<input type="submit" value="←">
+					</form>
 		        </div>
 			</div>
 		</div>

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header>
-		<a href="#" class="square_btn" style="float: right">ログアウト</a>
+		<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
 		<h1>課題詳細</h1>
 		<hr>
 	</header>
@@ -68,14 +68,12 @@
 					</textarea></label>
 			</p>
 			<div class="margin">
-			<%
-				out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
-	        	out.println("<input type=\"submit\" value=\"←\">");
-	        	out.println("</form>");
-				out.println("<from action=\"/TaskManage/Submit \" method=\"POST\">");
-				out.println("<input type=\"submit\" value=\"提出画面へ\" class=\"square_btn\" style=\"float: right\">");
-				out.println("</from>");
-			%>
+				<form action="/TaskManage/StudentsPage" method="POST">
+	        		<input type="submit" value="←">
+	        	</form>
+				<form action="/TaskManage/Submit" method="GET">
+					<input type="submit" value="提出画面へ" class="square_btn" style="float: right">
+				</form>
 			</div>
 		</div>
 	</div>

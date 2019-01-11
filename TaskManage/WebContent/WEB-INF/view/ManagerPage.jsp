@@ -54,26 +54,23 @@
 					</thead>
 					<tbody class="task_tbody">
 						<%
-							int j = 0;
-							while (j < resultList.size()) {
-								DistributionIndex result = (DistributionIndex) resultList.get(j);
-								if(j == 0) {
-									out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\"></form>");
-								}
-								out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-								out.println("<input type=\"hidden\" name=\"taskID\" value=" + result.getTaskID() + ">");
-								out.println("<tr>");
-								out.println("<td class=\"TaskID\">" + result.getTaskID() + "</td>"
-										+ "<td class=\"TaskName\">" + result.getTaskName() + "</td>"
-										+ "<td class=\"DeadLine\">" + date[j] + "</td> "
-										+ "<td class=\"Grade_Class\">" + result.getGrade() + "年"
-										+ result.getcName() + "組" + "</td>"
-										+ "<th class=\"BUTTON\" ><input type=\"submit\" value=\"＞\"></th>");
-								out.println("<tr>");
-								out.println("</from>");
-								j = j + 1;
-							}
+							for(int j = 0 ; j < resultList.size() ; j++) {
+								DistributionIndex result = resultList.get(j);
+								int id = result.getTaskID();
+								String name = result.getTaskName();
+								String grade = result.getGrade() + "年" + result.getcName() + "組";
 						%>
+						<tr>
+							<form action="/TaskManage/TaskContent" method="POST">
+								<td class="TaskID"><%=id  %></td>
+								<td class=TaskName><%=name %></td>
+								<td class="DeadLine"><%=date[j]%></td>
+								<td class="Grade_Class"><%=grade%></td>
+	 							<input type="hidden" name="taskID" value=<%=id %>>
+								<td class="BUTTON" ><input type="submit" value="＞"></td>
+							</form>
+						</tr>
+						<%	} %>
 					</tbody>
 				</table>
 			</div>
@@ -85,8 +82,9 @@
 				</form>
 			</div>
 			<div class="task_acquisition">
-				<form action="/TaskManage/Download" method="POST">
+				<form action="/TaskManage/Download" method="GET">
 					<input type="submit" class="square_btn" value="ファイル取得">
+					<input type="hidden" name="flg" value="true">
 				</form>
 			</div>
 			<form action="/TaskManage/UserIndex" method="POST">
