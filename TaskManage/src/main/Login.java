@@ -96,7 +96,7 @@ public class Login extends HttpServlet {
 		int id = mid.getId();
 		int idLen = String.valueOf(id).length();
 
-		if(result != null && idLen == 7){					//学生の場合
+		if(result != null && idLen == 7){				//学生の場合
 			String cID = Integer.toString(mid.getcID());
 
 			ArrayList<TaskIndex> resultList = ManageDAO.taskIndex(cID);
@@ -108,7 +108,7 @@ public class Login extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 
-		}else if(result != null && idLen == 8){			//教員の場合
+		}else if(result != null && idLen == 8){		//教員の場合
 			String tID = Integer.toString(id);
 
 			ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(tID);
