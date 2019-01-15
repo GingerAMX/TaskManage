@@ -87,9 +87,11 @@
 					<input type="hidden" name="flg" value="true">
 				</form>
 			</div>
+			<div class="manager_user">
 			<form action="/TaskManage/UserIndex" method="POST">
 				<input type="submit" class="square_btn" value="ユーザ管理">
 			</form>
+			</div>
 		</div>
 	</div>
 </main>

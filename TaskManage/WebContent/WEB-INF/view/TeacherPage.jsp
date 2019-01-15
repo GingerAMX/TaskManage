@@ -28,11 +28,9 @@
 		}
 	%>
 <header>
-	<div class="header_teacher_main">
 		<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
 		<h1>配布中の課題</h1>
 		<hr>
-	</div>
 </header>
 <%
 	//課題一覧の表示
@@ -91,7 +89,7 @@
 					<h1>管理者ログイン</h1>
 					<form action="/TaskManage/ManagerPage" method="POST">
 						<p>
-							管理者パスワード：<label><input type="password" name="pass"></label>
+							管理者パスワード<label><input type="password" name="pass"></label>
 						</p>
 						<input type="submit" value="ログイン">
 					</form>

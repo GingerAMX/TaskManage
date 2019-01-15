@@ -88,7 +88,7 @@
 					<input type="submit" class="square_btn" value="選択削除"
 						style="width: 145px; height: 60px;"><br>
 					<div class="delete_font_margin">
-						<input type="submit" value="←" formaction="/TaskManage/ManagerPage" formmethod="POST">
+						<input type="submit" class="square_btn" style="width: 145px; height: 60px;" value="←" formaction="/TaskManage/ManagerPage" formmethod="POST">
 					</div>
 				</div>
 			</div>

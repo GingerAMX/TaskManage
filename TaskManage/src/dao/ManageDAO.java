@@ -265,6 +265,7 @@ public class ManageDAO {
 			int valLen = String.valueOf(val).length();
 
 			if(valLen == 7){							//学生の場合
+				System.out.println("通過");
 				String sql = "SELECT sID, sName, cID "
 						+ "FROM Students "
 						+ "WHERE sID = ? "

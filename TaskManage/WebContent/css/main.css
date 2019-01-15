@@ -70,7 +70,7 @@ header .square_btn {
 }
 /*ボタン設定*/
 .box4 .square_btn {
-    width: 50%;
+    width: 300px;
     margin: 20px;
     position: relative;
     display: inline-block;
@@ -559,6 +559,4 @@ table.content_tablelock2 th,.content_tablelock3 th {
     width: 80px;
     font-size: 30px;
     margin : 10 0 10 50;
-}
-
 }
