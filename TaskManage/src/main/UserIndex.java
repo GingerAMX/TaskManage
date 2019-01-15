@@ -46,18 +46,17 @@ public class UserIndex extends HttpServlet {
 		String[] userID = request.getParameterValues("userID");
 		String grade = request.getParameter("grade");
 		String cName = request.getParameter("cName");
-		String teacher = request.getParameter("teacher");
 
 		//ユーザの削除
 		if(userID != null){
 			ManageDAO.userDelete(userID);
 		}
 		//学生の表示
-		if(grade != null && cName != null && teacher == null){
+		if(grade != "" && cName != ""){
 			ArrayList<dto.UserIndex> result = ManageDAO.userIndex(grade,cName);
 			request.setAttribute("resultList", result);
 		//教員の表示
-		} else if(teacher != null) {
+		} else if("".equals(grade) && "".equals(cName)) {
 			ArrayList<dto.UserIndex> result = ManageDAO.userIndex(grade,cName);
 			request.setAttribute("resultList", result);
 		}

@@ -37,6 +37,10 @@ public class Download extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String flg = request.getParameter("flg");
+
+		request.setAttribute("flg", flg);
+
 		String view = "/WEB-INF/view/Download.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
@@ -50,6 +54,7 @@ public class Download extends HttpServlet {
 		String taskName = request.getParameter("taskName");
 		String grade = request.getParameter("grade");
 		String cName = request.getParameter("class");
+		String flg = request.getParameter("flg");
 
 		//圧縮するファイルのパスを取得
 		ArrayList<Zip> path = ManageDAO.download(taskName,grade,cName);
@@ -58,6 +63,7 @@ public class Download extends HttpServlet {
 		String zipPath = result.toString();
 
 		request.setAttribute("zipPath", zipPath);
+		request.setAttribute("flg", flg);
 
 		String view = "/WEB-INF/view/Download.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -93,7 +99,7 @@ public class Download extends HttpServlet {
             for(int i = 0; i < path.size(); i++) {
             	mid = (Zip)path.get(i);
             	String filePath = mid.toString();
-            	
+
             	entry = new ZipEntry(filePath);
             	zipOut.putNextEntry( entry );
             	textBytes = "This is test1".getBytes();

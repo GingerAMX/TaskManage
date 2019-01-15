@@ -51,8 +51,8 @@ public class StudentsPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String ID = request.getParameter("ID");
-		String pass = request.getParameter("pass");
+		String ID = null;
+		String pass = null;
 		String cID = null;
 
 		int id=0;
@@ -75,34 +75,30 @@ public class StudentsPage extends HttpServlet {
 			}
 		}
 
-		if(pass == null){
-			pass = null;
-			cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
-			//Cookieが送信されていた場合
-			if (cookies.length != 0) {
-				for (Cookie c : cookies) {
-					// classというcookieがあるか
-					if (c.getName().equals("class")) {
-						cID = c.getValue();
-						// 新しくclassをキーにしてCookieを生成する
-						cookie = new Cookie("class", cID);
-						// cookieの有効期限を秒で設定(下は90日)
-						cookie.setMaxAge(60 * 60 * 24 * 90);
-						// レスポンスヘッダーにcookieを詰める
-						response.addCookie(cookie);
-						break;
-					}
+		cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if (cookies.length != 0) {
+			for (Cookie c : cookies) {
+				// passというcookieがあるか
+				if (c.getName().equals("pass")) {
+					pass = c.getValue();
+					// 新しくpassをキーにしてCookieを生成する
+					cookie = new Cookie("pass", pass);
+					// cookieの有効期限を秒で設定(下は90日)
+					cookie.setMaxAge(60 * 60 * 24 * 90);
+					// レスポンスヘッダーにcookieを詰める
+					response.addCookie(cookie);
+					break;
 				}
 			}
 		}
+		ID = Integer.toString(id);
 
 		if(ID != null && pass != null){
 			//ログイン処理
 			ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
 
 			dto.Login mid = (dto.Login)result.get(0);
-			int cid = mid.getId();
-			int cidLen = String.valueOf(cid).length();
 
 			cID = Integer.toString(mid.getcID());
 

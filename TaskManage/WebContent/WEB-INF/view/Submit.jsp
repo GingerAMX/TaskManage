@@ -31,6 +31,9 @@
 				    out.println("<input type=\"submit\" class=\"square_btn\" style=\"width:130px;height:70px;\" value=\"←\">");
 				    out.println("</form>");
 				%>
+					<form action="/TaskManage/TaskContent" method="POST">
+						<input type="submit" value="←">
+					</form>
 		        </div>
 			</div>
 		</div>

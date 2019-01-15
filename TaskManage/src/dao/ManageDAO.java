@@ -525,7 +525,7 @@ public class ManageDAO {
 						+ "FROM Task "
 						+ "JOIN Class "
 						+ "ON Task.cID = Class.cID "
-						+ "AND Task.taskID = 2";
+						+ "AND Task.taskID = ?";
 
 				pstmt = con.prepareStatement(sql);
 
@@ -1042,7 +1042,7 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			if("0".equals(grade) && "0".equals(cName)){
+			if("".equals(grade) && "".equals(cName)){
 				//教員レコードの取得
 				String sql = "SELECT tName, tID FROM Teacher";
 
@@ -1312,6 +1312,7 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int id = Integer.parseInt(takeover);
+			System.out.println(id);
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);

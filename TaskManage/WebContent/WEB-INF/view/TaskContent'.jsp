@@ -25,7 +25,7 @@
 	date[i] = b;
 	%>
     <header>
-        <a href="/TaskManage/Login" class="square_btn"style="float: right">ログアウト</a>
+        <a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
         <h1>課題詳細</h1>
         <hr>
     </header>
@@ -62,10 +62,11 @@
                 		out.println("<form action=\"/TaskManage/ManagerPage\" method=\"POST\">");
                 		out.println("<input type=\"submit\" value=\"←\">");
                 		out.println("</form>");
+                	}else {
+	                	out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
+	                	out.println("<input type=\"submit\" value=\"←\">");
+	                	out.println("</form>");
                 	}
-                	out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
-                	out.println("<input type=\"submit\" value=\"←\">");
-                	out.println("</form>");
                 %>
                 </div>
                 <div class="teacher_detail2">
