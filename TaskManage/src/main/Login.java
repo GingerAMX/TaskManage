@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ManageDAO;
 import dto.DistributionIndex;
 import dto.TaskIndex;
-
 /**
  * Servlet implementation class Login
  */
