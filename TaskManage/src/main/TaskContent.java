@@ -44,21 +44,25 @@ public class TaskContent extends HttpServlet {
 		String taskID = request.getParameter("taskID");
 		String tID = request.getParameter("tID");
 		String[] key = new String[3];
-
 		Cookie cookie = null;// Cookie変数を宣言
-		// 新しくCookieを生成
-		cookie = new Cookie("teacher", tID);
-		cookie.setMaxAge(60 * 60 * 24 * 90);
-		response.addCookie(cookie);
 
-		cookie = new Cookie("task", taskID);
-		cookie.setMaxAge(60 * 60 * 24 * 90);
-		response.addCookie(cookie);
+		//nullで更新されることを避けるため
+		if(tID != null){
+			// 新しくCookieを生成
+			cookie = new Cookie("teacher", tID);
+			cookie.setMaxAge(60 * 60 * 24 * 90);
+			response.addCookie(cookie);
+		}
+		if(taskID != null){
+			cookie = new Cookie("task", taskID);
+			cookie.setMaxAge(60 * 60 * 24 * 90);
+			response.addCookie(cookie);
+		}
 
-		int id=0;
 		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
 		//Cookieが送信されていた場合
-		if (cookies.length != 1) {
+		int id = 0;
+		if (cookies.length != 0) {
 			for (Cookie c : cookies) {
 				// idというcookieがあるか
 				if (c.getName().equals("id")) {
@@ -89,6 +93,26 @@ public class TaskContent extends HttpServlet {
 					// レスポンスヘッダーにcookieを詰める
 					response.addCookie(cookie);
 					break;
+				}
+			}
+		}
+		cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
+		//Cookieが送信されていた場合
+		if(taskID == null){
+			if (cookies.length != 0) {
+				for (Cookie c : cookies) {
+					// taskというcookieがあるか
+					if (c.getName().equals("task")) {
+						taskID = c.getValue();
+						System.out.println(taskID);
+						// 新しくtaskをキーにしてCookieを生成する
+						cookie = new Cookie("task", taskID);
+						// cookieの有効期限を秒で設定(下は90日)
+						cookie.setMaxAge(60 * 60 * 24 * 90);
+						// レスポンスヘッダーにcookieを詰める
+						response.addCookie(cookie);
+						break;
+					}
 				}
 			}
 		}

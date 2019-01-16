@@ -265,6 +265,7 @@ public class ManageDAO {
 			int valLen = String.valueOf(val).length();
 
 			if(valLen == 7){							//学生の場合
+				System.out.println("通過");
 				String sql = "SELECT sID, sName, cID "
 						+ "FROM Students "
 						+ "WHERE sID = ? "
@@ -1042,7 +1043,7 @@ public class ManageDAO {
 					"Abe",
 					"Dai");
 
-			if("0".equals(grade) && "0".equals(cName)){
+			if("".equals(grade) && "".equals(cName)){
 				//教員レコードの取得
 				String sql = "SELECT tName, tID FROM Teacher";
 
@@ -1312,6 +1313,7 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int id = Integer.parseInt(takeover);
+			System.out.println(id);
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);

@@ -46,29 +46,24 @@
                     </tr>
                 </thead>
                 <tbody class="task_tbody">
-                  <%
-				int j = 0;
-				while(j < resultList.size()) {
-					TaskIndex result = (TaskIndex)resultList.get(j);
-
-					if(j == 0) {
-						out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\"></form>");
-					}
-					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-					//hidden
-					out.println("<input type=\"hidden\" name=\"taskID\" value=" + result.getTaskID() + ">");
-					out.println("<tr>");
-						out.println("<td class=\"TaskID\">" + result.getTaskID() + "</td>"
-						+ "<td class=\"TaskName\">"+ result.getTaskName() + "</td>"
-						+ "<td class=\"DeadLine\">" + date[j] + "</td>"
-						+ "<td class=\"SubMission\">"+ result.gettName() + "</td>"
-						+ "<th class=\"BUTTON\" ><input type=\"submit\" value=\"＞\"></th>");
-					out.println("<tr>");
-					out.println("</from>");
-
-					j = j + 1;
-				}
+                <%
+					for(int j = 0 ; j < resultList.size() ; j++) {
+						TaskIndex result = resultList.get(j);
+						int id = result.getTaskID();
+						String name = result.getTaskName();
+						String tname = result.gettName();
 				%>
+					<tr>
+						<form action="/TaskManage/TaskContent" method="POST">
+							<td class="TaskID"><%=id  %></td>
+							<td class=TaskName><%=name %></td>
+							<td class="DeadLine"><%=date[j]%></td>
+							<td class="SubMission"><%=tname%></td>
+ 							<input type="hidden" name="taskID" value=<%=id %>>
+							<td class="BUTTON" ><input type="submit" value="＞"></td>
+						</form>
+					</tr>
+			<%	} %>
                 </tbody>
             </table>
         </div>

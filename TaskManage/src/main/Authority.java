@@ -47,8 +47,8 @@ public class Authority extends HttpServlet {
 		if(takeover != null){
 			flg = Boolean.valueOf(takeover);
 		}
-		Cookie cookie;
 
+		Cookie cookie;
 		if(tID != null){
 			cookie = new Cookie("teacher", tID);
 			cookie.setMaxAge(60 * 60 * 24 * 90);
@@ -58,18 +58,20 @@ public class Authority extends HttpServlet {
 		int id = 0;
 		Cookie[] cookies = request.getCookies();//送信されているCookieを取得(Cookieが送信されていなかったらnull)
 		//Cookieが送信されていた場合
-		if (cookies.length != 0) {
-			for (Cookie c : cookies) {
-				// teacherというcookieがあるか
-				if (c.getName().equals("teacher")) {
-					id = Integer.parseInt(c.getValue());
-					// 新しくteacherをキーにしてCookieを生成する
-					cookie = new Cookie("teacher", String.valueOf(id));
-					// cookieの有効期限を秒で設定(下は90日)
-					cookie.setMaxAge(60 * 60 * 24 * 90);
-					// レスポンスヘッダーにcookieを詰める
-					response.addCookie(cookie);
-					break;
+		if(tID == null){
+			if (cookies.length != 0) {
+				for (Cookie c : cookies) {
+					// teacherというcookieがあるか
+					if (c.getName().equals("teacher")) {
+						id = Integer.parseInt(c.getValue());
+						// 新しくteacherをキーにしてCookieを生成する
+						cookie = new Cookie("teacher", String.valueOf(id));
+						// cookieの有効期限を秒で設定(下は90日)
+						cookie.setMaxAge(60 * 60 * 24 * 90);
+						// レスポンスヘッダーにcookieを詰める
+						response.addCookie(cookie);
+						break;
+					}
 				}
 			}
 		}
@@ -77,7 +79,7 @@ public class Authority extends HttpServlet {
 		String ID = Integer.toString(id);
 
 		if(ID != null && mPass != null){				//権限の付与
-			ManageDAO.grant(tID,mPass);
+			ManageDAO.grant(ID,mPass);
 
 			String view = "/WEB-INF/view/UserIndex.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -91,7 +93,7 @@ public class Authority extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 
-		}else if(flg != false){
+		}else if(flg = true){
 			ManageDAO.takeOver(ID);
 
 			String view = "/WEB-INF/view/UserIndex.jsp";

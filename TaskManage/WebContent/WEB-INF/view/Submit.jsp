@@ -10,7 +10,7 @@
 <body>
 <% String[] key = (String[])request.getAttribute("key"); %>
     <header>
-          <a href="#" class="square_btn"style="float:right">ログアウト</a>
+          <a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
           <h1>課題提出</h1>
     <hr>
     </header>
@@ -23,12 +23,12 @@
 		                    <input type="file" id="task_submission"name="file" required >
 		                </label>
 		            </p>
-		            <input class="square_btn" type="submit" style="width:150px;height:78px;" value="提出">
+					<input class="square_btn" type="submit" style="width:130px;height:55px;" value="提出">
 				</form>
 		        <div class="submission_margin">
 				<%
 					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-				    out.println("<input type=\"submit\" value=\"←\">");
+				    out.println("<input type=\"submit\" class=\"square_btn\" style=\"width:130px;height:55px;\" value=\"←\">");
 				    out.println("</form>");
 				%>
 		        </div>
