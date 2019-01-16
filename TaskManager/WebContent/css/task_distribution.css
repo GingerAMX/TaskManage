@@ -1,0 +1,86 @@
+/*ヘッダー設定*/
+header {
+    font-size: 20px;
+}
+/*背景色設定*/
+body {
+    background-color: #EEEEEE;
+}
+.task_name {
+    font-size: 32px;
+    margin: 20 0 20 0;
+}
+.textarea2 {
+    font-size: 20px;
+}
+.box {
+    text-align: center;
+    background-color: #FFFFFF;
+    border: 2px solid;
+    width: 800px;
+    height: 500px;
+    padding: 5px 10px;
+    margin-left: 80px;
+}
+
+
+.Distribution {
+    font-size: 32px;
+    margin: 10px 100px 10px 0px;
+}
+
+.Thedeadline {
+    font-size: 30px;
+}
+
+.name {
+    width: 651px;
+    height: 60px;
+    font-size: 30px;
+}
+.pref {
+    width: 130px;
+    height: 60px;
+    margin: 10 68;
+    font-size: 25px;
+}
+.under_margin {
+    width: 100%;
+}
+.deadline_margin {
+    width: 50%;
+    float: left;
+    margin: 0px 0px 0px 13px;
+}
+.btn_margin {
+    width: 40%;
+    float: right;
+    margin: 33 65 33 0
+}
+.square_btn {
+    font-size: 30px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: 0px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    border-top: solid 4px #668ad8;
+    border-bottom: solid 4px #668ad8;
+    color: #668ad7;
+    background: #e1f3ff;
+    transition: .4s;
+}
+
+.square_btn:hover {
+    background: #668ad8;
+    color: #FFF;
+}
+.task_distribution_margin {
+    margin: 0 0 0 150;
+}
