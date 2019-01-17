@@ -1,0 +1,79 @@
+/*ヘッダー設定*/
+header {
+    font-size: 20px;
+    height: 95px;
+}
+/*背景色設定*/
+body {
+    background-color: #EEEEEE;
+}
+header .square_btn {
+    margin-right: 80px;
+    font-size: 35px;
+    width: 180px;
+}
+.file_acquisition {
+    margin : 60 0 0 300;
+}
+
+.box {
+    text-align: center;
+    background-color: #FFFFFF;
+    border: 2px solid;
+    width: 600px;
+    height: 360px;
+    padding: 5px 10px;
+    text-decoration: none;
+    min-height: 30px;
+    min-width: 400px;
+}
+.download_file {
+    font-size: 50px;
+    position: center;
+    widows: 60%;
+    height: 60%;
+}
+.button1 {
+    font-size: 30px;
+    margin: 30px;
+    padding: 1px;
+    text-align: center
+}
+input[type=text] {
+    width: 300px;
+    height: 50px;
+    font-size: 30px;
+}
+.margin_bottom {
+    width: 100%;
+}
+.under_margin {
+    width: 25%;
+    float: left;
+}
+.download_margin {
+    width: 50%;
+    float : left;
+}
+.square_btn {
+    font-size: 30px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: 0px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-left: solid 4px #668ad8;
+    border-right: solid 4px #668ad8;
+    color: #668ad7;
+    background: #e1f3ff;
+    transition: .4s;
+}
+
+.square_btn:hover {
+    background: #668ad8;
+    color: #FFF;
+}

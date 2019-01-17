@@ -70,7 +70,7 @@ header .square_btn {
 }
 /*ボタン設定*/
 .box4 .square_btn {
-    width: 300px;
+    width: 50%;
     margin: 20px;
     position: relative;
     display: inline-block;
@@ -137,7 +137,7 @@ header .square_btn {
 /*タブ内文字サイズ変更*/
 #tabbody td {
     padding: 0 20px 10px 10px;
-    font-size: 25px;
+    font-size: 30px;
 }
 .registration_text {
     font-size: 16px;
@@ -150,7 +150,7 @@ sub {
 sub .square_btn {
     text-align: center;
     width: 50%;
-    height: 30%;
+    height: 20%;
     margin: 20px;
     position: relative;
     display: inline-block;
@@ -171,7 +171,7 @@ sub .square_btn {
     background-color: #FFFFFF;
     border: 2px solid ;
     width: 760px;
-    height: 520px;
+    height: 500px;
 }
 /*ボックス位置中央に*/
 .margin_box {
@@ -284,6 +284,9 @@ table.content_tablelock1 th {
     font-size: 22px;
     border: 1px solid;
     background: #FFFFFF;
+}
+.submission_margin {
+    margin: 80 0 0 0;
 }
 .submission_margin .square_btn {
     font-size: 32px;
@@ -546,7 +549,11 @@ table.content_tablelock2 th,.content_tablelock3 th {
     border: 2px solid;
     width: 650px;
     height: 310px;
-    margin: 0 0 20 50
+    margin: 0 0 20 50;
+    font-size: 22px;
+}
+.text_box input[type=password] {
+    font-size: 22px;
 }
 .box_manager {
     background-color: #FFFFFF;
@@ -554,9 +561,12 @@ table.content_tablelock2 th,.content_tablelock3 th {
     width: 760px;
     height: 400px;
 }
-.return {
+.back_btn .square_btn {
     height: 50px;
     width: 80px;
     font-size: 30px;
     margin : 10 0 10 50;
+}
+.text_box .square_btn {
+    font-size: 22px;
 }
