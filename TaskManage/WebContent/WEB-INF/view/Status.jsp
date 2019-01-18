@@ -132,7 +132,7 @@
 			<div class="margin_top">
 				<%
 					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-					out.println("<input type=\"submit\" class=\"square_btn\" style=\"float:left\"value=\"←\">");
+					out.println("<input type=\"submit\" class=\"square_btn\" style=\"float:left;margin:0 0 10 100;\"value=\"←\">");
 					out.println("</form>");
 				%>
 			</div>

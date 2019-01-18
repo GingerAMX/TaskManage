@@ -23,7 +23,7 @@ body {
     padding: 5px 10px;
     margin-left: 80px;
 }
-.header .square_btn {
+header .square_btn {
     position: relative;
     display: inline-block;
     font-weight: bold;
@@ -34,7 +34,9 @@ body {
     color: #668ad8;
     background: #e1f3ff;
     transition: .4s;
-}
+    margin-right: 80px;
+    font-size: 35px;
+    width: 180px;
 }
 
 .Distribution {

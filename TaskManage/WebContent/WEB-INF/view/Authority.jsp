@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
     <title>権限付与画面</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
     <header>
@@ -16,7 +16,9 @@
       <div class="margin_box_manager">
         <div class="box_manager">
           <div class="back_btn">
+           <form action="/TaskManage/UserIndex" method="POST">
           	<input type="submit" class="square_btn" value="←">
+           </form>
           </div>
             <div class="text_box">
 				<%

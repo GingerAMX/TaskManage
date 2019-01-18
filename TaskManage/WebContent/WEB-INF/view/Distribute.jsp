@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 				<form action="/TaskManage/Distribute" method="POST">
 					<p class="task_name"><label>課題名 :<input type="text" class="name" name="taskName"></label></p>
 					<textarea class ="textarea2" name="content" rows="10" cols="75" placeholder="課題内容"></textarea>
-					<p class="Distribution"><label for="pref">配布先 : </label>
+					<p class="Distribution" style="font-size: 32px;margin: 10px 100px 10px 0px;"><label for="pref">配布先 : </label>
 	                <select name="grade" class="pref">
 	                    <option value="" selected>学年</option>
 	                    <option value="1">1</option>
