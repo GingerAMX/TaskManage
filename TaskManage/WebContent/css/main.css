@@ -17,7 +17,7 @@ body {
     position: relative;
     display: inline-block;
     font-weight: bold;
-    padding: 0.5em 1em;
+    padding: 0.4em 1em;
     text-decoration: none;
     border-left: solid 4px #668ad8;
     border-right: solid 4px #668ad8;
@@ -70,7 +70,7 @@ header .square_btn {
 }
 /*ボタン設定*/
 .box4 .square_btn {
-    width: 50%;
+    width: 200px;;
     margin: 20px;
     position: relative;
     display: inline-block;
@@ -223,7 +223,7 @@ sub .square_btn {
     background-color: #FFFFFF;
     border: 2px solid ;
     width: 1000px;
-    height: 83%;
+    height: 2000px;;
 }
 /*ボックス位置中央に*/
 .margin_box2 {

@@ -60,11 +60,11 @@
                 <%
                 	if(key[2] != null){
                 		out.println("<form action=\"/TaskManage/ManagerPage\" method=\"POST\">");
-                		out.println("<input type=\"submit\" value=\"←\">");
+                		out.println("<input type = submit class=\"square_btn\" style=\"float: left;width: 30%;font-size: 40px;\"value=\"←\">");
                 		out.println("</form>");
                 	}else {
 	                	out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
-	                	out.println("<input type=\"submit\" value=\"←\">");
+	                	out.println("<input type = submit class=\"square_btn\" style=\"float: left;width: 30%;font-size: 40px;\"value=\"←\">");
 	                	out.println("</form>");
                 	}
                 %>
@@ -72,13 +72,13 @@
                 <div class="teacher_detail2">
 	                <%
 	                out.println("<form action=/TaskManage/Status method=GET>"
-					+ "<input type=submit value=提出状況へ></form>");
+					+ "<input type=submit class=\"square_btn\" style=\"float: left;width: 100%;font-size: 30px;\"value=提出状況へ></form>");
 	                %>
                 </div>
                 <div class="teacher_detail3">
                 <%
                 out.println("<form action=/TaskManage/TaskContent method=POST>"
-				+ "<input type=submit value=×>"
+				+ "<input type=submit class=\"square_btn\" style=\"float: right;width: 30%;font-size: 40px;\"value=×>"
 				+ "<input type=hidden name=taskID value=" + result.getTaskID() + "></form>");
                 %>
                 </div>

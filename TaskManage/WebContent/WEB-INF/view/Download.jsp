@@ -24,7 +24,7 @@
 		<div class="box">
 			<form action="/TaskManage/Download" method="post">
 				<p>
-					課題名 ：<label class="download_file"><input type="text"
+					課題名：<label class="download_file"><input type="text"
 						name="taskName" class="file_input"></label>
 				</p>
 				<p>
@@ -32,7 +32,7 @@
 						name="grade" class="file_input"></label>
 				</p>
 				<p>
-					クラス ：<label class="download_file"><input type="text"
+					クラス：<label class="download_file"><input type="text"
 						name="class" class="file_input"></label>
 				</p>
 				<div class="margin_bottom">

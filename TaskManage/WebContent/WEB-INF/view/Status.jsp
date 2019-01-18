@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="dto.Submitted" %>
-<%@ page import="dto.UnSubmitted" %>
-<%@ page import="dto.TaskContent" %>
-<!DOCTYPE html>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="dto.Submitted"%>
+<%@ page import="dto.UnSubmitted"%>
+<%@ page import="dto.TaskContent"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>課題提出状況</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
 
-		ArrayList<Submitted> submitted = (ArrayList<Submitted>)request.getAttribute("submitted");
-		ArrayList<UnSubmitted> unSubmitted = (ArrayList<UnSubmitted>)request.getAttribute("unSubmitted");
-		ArrayList<TaskContent> resultList = (ArrayList<TaskContent>)request.getAttribute("resultList");
+		ArrayList<Submitted> submitted = (ArrayList<Submitted>) request.getAttribute("submitted");
+		ArrayList<UnSubmitted> unSubmitted = (ArrayList<UnSubmitted>) request.getAttribute("unSubmitted");
+		ArrayList<TaskContent> resultList = (ArrayList<TaskContent>) request.getAttribute("resultList");
 
 		//日付への変更(課題内容)
 		int i = 0;
 		String[] date;
 		date = new String[1];
-		TaskContent result1 = (TaskContent)resultList.get(0);
+		TaskContent result1 = (TaskContent) resultList.get(0);
 		String a = Integer.toString(result1.getDeadline());
 		String b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
 		date[i] = b;
@@ -31,59 +32,112 @@
 		int j = 0;
 		String[] date2;
 		date2 = new String[60];
-		while(j < submitted.size()) {
-			Submitted result2 = (Submitted)submitted.get(j);
+		while (j < submitted.size()) {
+			Submitted result2 = (Submitted) submitted.get(j);
 			a = Integer.toString(result2.getDate());
 			b = a.substring(0, 4) + "年" + a.substring(4, 6) + "月" + a.substring(6, 8) + "日";
 			date2[i] = b;
 			j = j + 1;
 		}
 	%>
+	<header>
+		<a href="/TaskManage/Login" class="square_btn" style="float: right">ログアウト</a>
+		<h1>課題提出状況</h1>
+		<hr>
+	</header>
+	<main>
+	<div class="margin_box2">
+		<div class="box2">
+			<table class="task">
+				<tr>
+					<th>課題名</th>
+					<td>
+						<%
+							out.println(result1.getTaskName());
+						%>
+					</td>
+				</tr>
+				<tr>
+					<th>配布先</th>
+					<td>
+						<%
+							out.println(result1.getName());
+						%>
+					</td>
+				</tr>
+				<tr>
+					<th>期限</th>
+					<td>
+						<%
+							out.println(date[0]);
+						%>
+					</td>
+				</tr>
+			</table>
+			<div class="task_status">
+				<div class="intro_margin">
+					<div class="introduction">
+						<table class="content_tablelock2">
+							<thead class="task_thead2">
+								<tr>
+									<th class="Distribution_Number">学籍番号</th>
+									<th class="Task_Distribution">課題提出者</th>
+									<th class="Submission_Day">提出日時</th>
+								</tr>
+							</thead>
+							<tbody class="task_tbody2">
+								<%
+									j = 0;
+									while (j < submitted.size()) {
+										Submitted result = (Submitted) submitted.get(j);
+										out.println("<tr>");
+										out.println("<td class=\"Distribution_Number\">" + result.getsID() + "</td>"
+												+ "<td class=\"Task_Distribution\">" + result.getsName() + "</td>"
+												+ "<td class=\"Submission_Day\">" + date2[j] + "</td>");
+										out.println("<tr>");
+										j = j + 1;
+									}
+								%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<%
+					//未提出者の一覧
+				%>
+				<div class="no_introduction">
+					<table class="content_tablelock3">
+						<thead class="task_thead2">
+							<tr>
+								<th class="No_Submission_Number">学籍番号</th>
+								<th class="No_Submission">課題未提出者</th>
+							</tr>
+						</thead>
+						<tbody class="task_tbody3">
+							<%
+								j = 0;
+								while (j < unSubmitted.size()) {
+									UnSubmitted result = (UnSubmitted) unSubmitted.get(j);
+									out.println("<tr>");
+									out.println("<td class=\"No_Submission_Number\">" + result.getsID() + "</td>"
+											+ "<td class=\"No_Submission\">" + result.getsName() + "</td>");
+									out.println("<tr>");
+									j = j + 1;
+								}
+							%>
 
-	<%
-	//課題の情報
-		out.println(result1.getTaskName());
-		out.println(result1.getName());
-		out.println(date[0]);
-	//提出者の一覧 %>
-	<table border="1" align="center">
-		<tr>
-			<th>学籍番号</th><th>学生名</th><th>提出日</th>
-		</tr>
-		<%
-			j = 0;
-			while(j < submitted.size()) {
-				Submitted result = (Submitted)submitted.get(j);
-				out.println("<tr>");
-				out.println("<td>" + result.getsID() +
-						"</td>" + "<td>" + result.getsName() + "</td>" + "<td>" + date2[j] + "</td>");
-				out.println("<tr>");
-				j = j + 1;
-			}
-		%>
-	</table>
-
-	<% //未提出者の一覧 %>
-	<table border="1" align="center">
-		<tr>
-			<th>学籍番号</th><th>学生名</th>
-		</tr>
-	<%
-		j = 0;
-		while(j < unSubmitted.size()) {
-			UnSubmitted result = (UnSubmitted)unSubmitted.get(j);
-			out.println("<tr>");
-			out.println("<td>" + result.getsID() +
-					"</td>" + "<td>" + result.getsName() + "</td>");
-			out.println("<tr>");
-			j = j + 1;
-		}
-	%>
-	</table>
-	<%
-		out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-	    out.println("<input type=\"submit\" value=\"←\">");
-	    out.println("</form>");
-	%>
+					</table>
+				</div>
+			</div>
+			<div class="margin_top">
+				<%
+					out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
+					out.println("<input type=\"submit\" class=\"square_btn\" style=\"float:left\"value=\"←\">");
+					out.println("</form>");
+				%>
+			</div>
+		</div>
+	</div>
+	</main>
 </body>
 </html>

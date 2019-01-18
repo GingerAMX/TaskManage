@@ -20,6 +20,8 @@
           </div>
             <div class="text_box">
 				<%
+				request.setCharacterEncoding("UTF-8");
+		        String[] list = (String[])request.getAttribute("list");
 				if("".equals(list[2])){		//ユーザに管理者権限があった場合 %>
 					<form action="/TaskManage/Authority" method="POST">
 						<p>現在、<%=list[1]%>さんは権限が与えられていません。<br>
