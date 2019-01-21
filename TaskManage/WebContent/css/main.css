@@ -150,7 +150,7 @@ sub {
 sub .square_btn {
     text-align: center;
     width: 50%;
-    height: 20%;
+    height: 100px;
     margin: 20px;
     position: relative;
     display: inline-block;
@@ -223,7 +223,7 @@ sub .square_btn {
     background-color: #FFFFFF;
     border: 2px solid ;
     width: 1000px;
-    height: 2000px;;
+    height: 520px;;
 }
 /*ボックス位置中央に*/
 .margin_box2 {

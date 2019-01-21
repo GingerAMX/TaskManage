@@ -47,7 +47,7 @@
 	</header>
 	<main>
 	<div class="margin_box2">
-		<div class="box2">
+		<div class="box2" style="height:520px;">
 			<table class="task">
 				<tr>
 					<th>課題名</th>

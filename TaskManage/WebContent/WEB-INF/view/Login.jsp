@@ -26,7 +26,7 @@
 				%>
 			</form>
 			<p></p>
-			<a href="/TaskManage/Register" class="square_btn">新規登録画面へ</a>
+			<a href="/TaskManage/Register" class="square_btn" style="width:150px;">新規登録</a>
 		</div>
 	</div>
 	</main>
