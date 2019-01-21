@@ -9,6 +9,23 @@ pageEncoding="UTF-8"%>
 <body>
 <header>
 	<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
+	<%
+	request.setCharacterEncoding("UTF-8");
+	String flg = (String)request.getAttribute("flg");
+		if ("true".equals(flg)) {
+		%>
+			<form action="/TaskManage/ManagerPage" method="POST">
+				<input type="submit" value="←" class="square_btn" style="height: 60px;">
+			</form>
+		<%
+		} else if ("false".equals(flg)) {
+		%>
+			<form action="/TaskManage/TeacherPage" method="POST">
+				<input type="submit" value="←" class="square_btn" style="height: 60px;">
+			</form>
+		<%
+		}
+	%>
 	<h1>課題配布</h1>
 	<hr>
 </header>
@@ -38,6 +55,7 @@ pageEncoding="UTF-8"%>
 	            		</div>
 		                <div class="btn_margin">
 		                    <input type="submit" value="配布" class="square_btn">
+		                    <input type="hidden" value="<%=flg%>" name="flg">
 		                </div>
 	            	</div>
 	            </form>

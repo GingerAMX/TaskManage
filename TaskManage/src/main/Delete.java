@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ManageDAO;
+import dto.DistributionIndex;
 
 /**
- * Servlet implementation class TaskContent
+ * Servlet implementation class Delete
  */
-@WebServlet("/TaskContent")
-public class TaskContent extends HttpServlet {
+@WebServlet("/Delete")
+public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TaskContent() {
+    public Delete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +33,8 @@ public class TaskContent extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -43,8 +45,6 @@ public class TaskContent extends HttpServlet {
 		String taskID = request.getParameter("taskID");
 		String tID = request.getParameter("tID");
 		String[] key = new String[3];
-		String flg = request.getParameter("flg");
-
 		Cookie cookie = null;// Cookie変数を宣言
 
 		//nullで更新されることを避けるため
@@ -123,26 +123,34 @@ public class TaskContent extends HttpServlet {
 		key[1] = taskID;
 		key[2] = pass;
 
-		int valLen = String.valueOf(id).length();
-		if(valLen == 7){							//ユーザが学生の場合
-			ArrayList<dto.TaskContent> result = ManageDAO.taskContent(taskID,valLen);
+		if(taskID != null && ID != null){		//課題の削除
+			System.out.println("課題削除");
+			ManageDAO.taskDelete(taskID);
+
+			ArrayList<DistributionIndex> result = ManageDAO.distributionIndex(ID);
 
 			request.setAttribute("resultList", result);
-			request.setAttribute("key", key);
 
-			String view = "/WEB-INF/view/TaskContent.jsp";
-			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-			dispatcher.forward(request, response);
-		}else if(valLen == 8){						//ユーザが教員の場合
-			ArrayList<dto.TaskContent> result = ManageDAO.taskContent(taskID,valLen);
+			//教員ページへ戻る
+			if(pass != null){
+				ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(ID);
 
-			request.setAttribute("resultList", result);
-			request.setAttribute("key", key);
-			request.setAttribute("flg", flg);
+				request.setAttribute("resultList", resultList);
+				request.setAttribute("key", ID);
 
-			String view = "/WEB-INF/view/TaskContent'.jsp";
-			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-			dispatcher.forward(request, response);
+				String view = "/WEB-INF/view/TeacherPage.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}else if(pass == null){
+				ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(ID);
+
+				request.setAttribute("resultList", resultList);
+				request.setAttribute("key", ID);
+
+				String view = "/WEB-INF/view/ManagerPage.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}
 		}
 	}
 

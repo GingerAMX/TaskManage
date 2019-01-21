@@ -17,6 +17,7 @@
 		ArrayList<Submitted> submitted = (ArrayList<Submitted>)request.getAttribute("submitted");
 		ArrayList<UnSubmitted> unSubmitted = (ArrayList<UnSubmitted>)request.getAttribute("unSubmitted");
 		ArrayList<TaskContent> resultList = (ArrayList<TaskContent>)request.getAttribute("resultList");
+		String flg = (String)request.getAttribute("flg");
 
 		//日付への変更(課題内容)
 		int i = 0;
@@ -80,10 +81,9 @@
 		}
 	%>
 	</table>
-	<%
-		out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-	    out.println("<input type=\"submit\" value=\"←\">");
-	    out.println("</form>");
-	%>
+	<form action="/TaskManage/TaskContent" method="POST">
+	    <input type="submit" value="←">
+	    <input type="hidden" value="<%=flg%>" name="flg">
+	</form>
 </body>
 </html>

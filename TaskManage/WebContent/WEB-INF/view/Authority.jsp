@@ -13,6 +13,7 @@
       <hr>
     </header>
     <main>
+    <% String[] list = (String[])request.getAttribute("list"); %>
       <div class="margin_box_manager">
         <div class="box_manager">
           <div class="back_btn">
