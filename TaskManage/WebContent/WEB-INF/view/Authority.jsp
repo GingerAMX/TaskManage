@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
     <title>権限付与画面</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
     <header>
@@ -13,14 +13,17 @@
       <hr>
     </header>
     <main>
-    <% String[] list = (String[])request.getAttribute("list"); %>
       <div class="margin_box_manager">
         <div class="box_manager">
           <div class="back_btn">
+           <form action="/TaskManage/UserIndex" method="POST">
           	<input type="submit" class="square_btn" value="←">
+           </form>
           </div>
             <div class="text_box">
 				<%
+				request.setCharacterEncoding("UTF-8");
+		        String[] list = (String[])request.getAttribute("list");
 				if("".equals(list[2])){		//ユーザに管理者権限があった場合 %>
 					<form action="/TaskManage/Authority" method="POST">
 						<p>現在、<%=list[1]%>さんは権限が与えられていません。<br>

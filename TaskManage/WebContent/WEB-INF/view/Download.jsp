@@ -24,15 +24,15 @@
 	<div class="file_acquisition">
 		<div class="box">
 			<form action="/TaskManage/Download" method="post">
-				<p>
+				<p style="font-size:35px;">
 					課題名 ：<label class="download_file"><input type="text"
 						name="taskName" class="file_input"></label>
 				</p>
-				<p>
-					学 年 ：<label class="download_file"><input type="text"
+				<p style="font-size:35px;">
+					学　年 ：<label class="download_file"><input type="text"
 						name="grade" class="file_input"></label>
 				</p>
-				<p>
+				<p style="font-size:35px;">
 					クラス ：<label class="download_file"><input type="text"
 						name="class" class="file_input"></label>
 				</p>

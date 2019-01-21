@@ -61,19 +61,23 @@
 			</table>
 			<p class="detail">
 				<label>内容<br>
-				<textarea class="textarea" rows="12" cols="65" style="font-size:20px;text-align:left;">
+				<textarea class="textarea" rows="12" cols="65" readonly style="font-size:20px;text-align:left;">
 						<%
 							out.println(result.getText());
 						%>
 					</textarea></label>
 			</p>
-			<div class="margin">
+			<div class="teacher_detail_margin">
+				<div class="teacher_detail1">
 				<form action="/TaskManage/StudentsPage" method="POST">
-	        		<input type="submit" value="←" class="square_btn" style="float: left">
+	        		<input type="submit" value="←" class="square_btn" style="float: left;width: 30%;font-size: 40px;margin-left:40px;">
 	        	</form>
+	        	</div>
+	        	<div class="teacher_detail3">
 				<form action="/TaskManage/Submit" method="GET">
-					<input type="submit" value="提出画面へ" class="square_btn" style="float: right">
+					<input type="submit" value="提出画面へ" class="square_btn" style="float: left; width: 80%;font-size: 30px;margin-left:200px;">
 				</form>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -64,14 +64,14 @@
 						%>
 						<form action="/TaskManage/ManagerPage" method="POST">
 							<input type="submit" value="←" class="square_btn"
-								style="height: 60px;">
+								style="float: left; width: 30px; font-size: 40;" >
 						</form>
 						<%
 							} else if ("false".equals(flg)) {
 						%>
 						<form action="/TaskManage/TeacherPage" method="POST">
 							<input type="submit" value="←" class="square_btn"
-								style="height: 60px;">
+								style="float: left; width: 30px; font-size: 40;">
 						</form>
 						<%
 					}
@@ -79,12 +79,13 @@
                 </div>
                 <div class="teacher_detail2">
 	                <form action="/TaskManage/Status" method="POST">
-	                <input type="hidden" value="<%=flg%>" name="flg">
-	                <input type="submit" value="提出状況へ"></form>
+		                <input type="hidden" value="<%=flg%>" name="flg">
+		                <input type="submit" value="提出状況へ" class="square_btn" style="float: left; width: 100% ;font-size: 30px;">
+	                </form>
                 </div>
                 <div class="teacher_detail3">
                 <form action="/TaskManage/Delete" method="POST">
-					<input type="submit" value="×">
+					<input type="submit" value="×" class="square_btn" style="float: right; width: 30%; font-size: 40px;">
 					<input type="hidden" name="taskID" value="<%=result.getTaskID()%>">
 				</form>
                 </div>
@@ -93,4 +94,3 @@
       </div>
     </main>
 </body>
-</html>
