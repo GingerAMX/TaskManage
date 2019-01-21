@@ -11,6 +11,7 @@
 <title>課題提出状況</title>
 </head>
 <body>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 	<%
 		request.setCharacterEncoding("UTF-8");
 
@@ -46,13 +47,8 @@
 		<hr>
 	</header>
 	<main>
-	<%
-	//課題の情報
-		out.println(result1.getTaskName());
-		out.println(result1.getName());
-		out.println(date[0]);
-	//提出者の一覧 %>
-	<div class="margin_box2">
+	<%//提出者の一覧 %>
+	<div class="margin_box2" style="height:520px;">
 		<div class="box2">
 			<table class="task">
 				<tr>
@@ -133,7 +129,7 @@
 			</div>
 			<div class="margin_top">
 				<form action="/TaskManage/TaskContent" method="POST">
-				    <input type="submit" value="←" class="square_btn" style="float:left">
+				    <input type="submit" value="←" class="square_btn" style="float:left; margin:0 0 10 100;">
 				    <input type="hidden" value="<%=flg%>" name="flg">
 				</form>
 			</div>
@@ -141,4 +137,5 @@
 	</div>
 	</main>
 </body>
+</head>
 </html>

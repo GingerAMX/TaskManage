@@ -23,7 +23,7 @@
 				<div id="tabpage1">
 					<table>
 						<tr>
-							<td>学籍番号</td>
+							<td>学生ID</td>
 							<td><input type="text" name="sID" class="registration_text"></td>
 							<td>パスワード</td>
 							<td><input type="password" name="sPass"
@@ -45,14 +45,14 @@
 						<option value="" selected>クラス</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
-						<option value="3">３</option>
+						<option value="3">3</option>
 					</select> <sub> <input type="submit" class="square_btn"
-						style="font-size: 50px" value="登録">
+						style="font-size: 50px;height:100px;" value="登録">
 					</sub>
 				</div>
 			</form>
 			<form action="/TaskManage/Register" method="POST">
-				<div id="tabpage2">
+				<div id="tabpage2" style="background-color: #CEF6CE;">
 					<table>
 						<tr>
 							<td>教員ID</td>
@@ -68,7 +68,7 @@
 						</tr>
 					</table>
 					<sub> <input type="submit" class="square_btn"
-						style="font-size: 50px" value="登録">
+						style="font-size: 50px;height:100px;" value="登録">
 					</sub>
 				</div>
 			</form>

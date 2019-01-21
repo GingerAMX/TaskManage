@@ -27,15 +27,15 @@
 			i = i + 1;
 		}
 	%>
-<header>
-		<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
-		<h1>配布中の課題</h1>
-		<hr>
-</header>
-<%
-	//課題一覧の表示
-%>
-<main>
+	<header>
+			<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
+			<h1>配布中の課題</h1>
+			<hr>
+	</header>
+	<%
+		//課題一覧の表示
+	%>
+	<main>
 	<div class="content_task">
 		<div class="content_task2">
 			<div class="box3">

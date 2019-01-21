@@ -27,7 +27,7 @@
 	date[i] = b;
 	%>
     <header>
-        <a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
+        <a href="/TaskManage/Login" class="square_btn" style="float:right">ログアウト</a>
         <h1>課題詳細</h1>
         <hr>
     </header>
@@ -54,24 +54,25 @@
                     </td>
                 </tr>
             </table>
-               <p class="detail"><label>内容<br><textarea class="textarea"name="task_detail" rows="8" cols="45" readonly>
-               		<% out.println(result.getText()); %>
-               </textarea></label></p>
+			<p class="detail">
+				<label>内容<br>
+				<textarea class="textarea" name="task_detail" rows="8" cols="45" readonly>
+					<% out.println(result.getText()); %>
+				</textarea></label>
+			</p>
             <div class="teacher_detail_margin">
                 <div class="teacher_detail1">
                 <%
 					if ("true".equals(flg)) {
 						%>
 						<form action="/TaskManage/ManagerPage" method="POST">
-							<input type="submit" value="←" class="square_btn"
-								style="float: left; width: 30px; font-size: 40;" >
+							<input type="submit" value="←" class="square_btn" style="float: left; width: 30%; font-size: 40px;" >
 						</form>
 						<%
 							} else if ("false".equals(flg)) {
 						%>
 						<form action="/TaskManage/TeacherPage" method="POST">
-							<input type="submit" value="←" class="square_btn"
-								style="float: left; width: 30px; font-size: 40;">
+							<input type="submit" value="←" class="square_btn" style="float: left; width: 30%; font-size: 40px;">
 						</form>
 						<%
 					}
@@ -94,3 +95,4 @@
       </div>
     </main>
 </body>
+</html>
