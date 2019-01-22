@@ -32,6 +32,10 @@ public class Distribute extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String flg = request.getParameter("flg");
+
+		request.setAttribute("flg", flg);
+
 		String view = "/WEB-INF/view/Distribute.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
@@ -47,6 +51,7 @@ public class Distribute extends HttpServlet {
 		String grade = request.getParameter("grade");
 		String cName = request.getParameter("cName");
 		String deadline = request.getParameter("deadline");
+		String flg = request.getParameter("flg");
 
 		int id=0;
 		Cookie cookie;
@@ -72,6 +77,7 @@ public class Distribute extends HttpServlet {
 		if(taskName != null && content != null && tID != null){
 			ManageDAO.distribute(taskName,content,tID,grade,cName,deadline);
 		}
+		request.setAttribute("flg", flg);
 
 		String view = "/WEB-INF/view/Distribute.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);

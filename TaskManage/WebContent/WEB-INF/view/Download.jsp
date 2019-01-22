@@ -13,6 +13,7 @@
 		request.setCharacterEncoding("UTF-8");
 		String zipPath = (String) request.getAttribute("zipPath");
 		String flg = (String) request.getAttribute("flg");
+		System.out.println(flg);
 	%>
 	<header>
 		<a href="#" class="square_btn" style="float: right">ログアウト</a>
@@ -43,9 +44,6 @@
 				</div>
 			</form>
 			<div class="margin_bottom">
-			<div class="download_margin">
-				<a href="<%=zipPath%>"  class="square_btn">ダウンロード</a>
-			</div>
 			<div class="under_margin">
 				<%
 					if ("true".equals(flg)) {

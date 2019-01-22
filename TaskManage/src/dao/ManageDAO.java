@@ -522,7 +522,7 @@ public class ManageDAO {
 				}
 
 			}else if(valLen == 8){
-				String sql = "SELECT Task.taskName, Task.TaskID, Class.grade, Class.cName, Task.deadline, Task.text "
+				String sql = "SELECT Task.taskName, Task.TaskID, Class.grade, Class.cName, Task.deadline, Task.text, Task.cID "
 						+ "FROM Task "
 						+ "JOIN Class "
 						+ "ON Task.cID = Class.cID "
@@ -543,7 +543,8 @@ public class ManageDAO {
 					String name = grade + "年" + cName + "組";
 					String text = rs.getString("text");
 					int deadline = rs.getInt("deadline");
-					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,0));
+					int cID = rs.getInt("cID");
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,cID));
 				}
 			}
 
@@ -983,8 +984,8 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int mid = Integer.parseInt(tID);
-			pstmt.setInt(1, mid);
-			pstmt.setString(2, pass);
+			pstmt.setInt(2, mid);
+			pstmt.setString(1, pass);
 
 			rs = pstmt.executeQuery();
 

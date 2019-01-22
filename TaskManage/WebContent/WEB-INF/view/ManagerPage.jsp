@@ -67,6 +67,7 @@
 								<td class="DeadLine"><%=date[j]%></td>
 								<td class="Grade_Class"><%=grade%></td>
 	 							<input type="hidden" name="taskID" value=<%=id %>>
+	 							<input type="hidden" name="flg" value="true">
 								<td class="BUTTON" ><input type="submit" value="＞"></td>
 							</form>
 						</tr>
@@ -79,6 +80,7 @@
 			<div class="task_distribution">
 				<form action="/TaskManage/Distribute" method="POST">
 					<input type="submit" class="square_btn" value="配布">
+					<input type="hidden" name="flg" value="true">
 				</form>
 			</div>
 			<div class="task_acquisition">

@@ -96,6 +96,10 @@ public class Login extends HttpServlet {
 		int idLen = String.valueOf(id).length();
 
 		if(result != null && idLen == 7){				//学生の場合
+			cookie = new Cookie("pass", pass);
+			cookie.setMaxAge(60 * 60 * 24 * 90);
+			response.addCookie(cookie);
+
 			String cID = Integer.toString(mid.getcID());
 
 			ArrayList<TaskIndex> resultList = ManageDAO.taskIndex(cID);

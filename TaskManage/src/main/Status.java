@@ -34,7 +34,15 @@ public class Status extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String flg = request.getParameter("flg");
 
 		Cookie cookie;
 		int task = 0;
@@ -72,15 +80,10 @@ public class Status extends HttpServlet {
 		ArrayList<UnSubmitted> unSubmitted = ManageDAO.unSubmitted(cID,taskID);
 		request.setAttribute("unSubmitted", unSubmitted);
 
+		request.setAttribute("flg", flg);
+
 		String view = "/WEB-INF/view/Status.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	}
 }

@@ -15,15 +15,18 @@
 	</header>
 	<div class="margin_login">
 		<div class="box4">
-			<form action=/TaskManage/Login method=POST>
-				<%
-					out.println("<table border=0 align=center>");
-					out.println("<tr><td>ID :</td>" + "<td><input type=text name=ID maxlength=8" + "placeholder=文字制限8字まで></td>"
-							+ "</tr>" + "<tr>" + "<td>パスワード :</td>" + "<td><input type=password name=pass maxlength=16"
-							+ "placeholder=文字制限16字まで></td>" + "</tr>");
-					out.println("</table>");
-					out.println("<input type=submit value=ログイン class=square_btn>");
-				%>
+			<form action="/TaskManage/Login method=POST">
+				<table border="0" align="center">
+					<tr>
+						<td>ID :</td>
+						<td><input type="text" name="ID" maxlength="8" placeholder="文字制限8字まで"></td>
+					</tr>
+					<tr>
+						<td>パスワード :</td>
+						<td><input type="password" name="pass" maxlength="16" placeholder="文字制限16字まで"></td>
+					</tr>
+				</table>
+				<input type="submit" value="ログイン" class="square_btn">
 			</form>
 			<p></p>
 			<a href="/TaskManage/Register" class="square_btn" style="width:150px;">新規登録</a>
