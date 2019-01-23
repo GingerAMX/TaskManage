@@ -61,7 +61,7 @@
 			</table>
 			<p class="detail">
 				<label>内容<br>
-				<textarea class="textarea" rows="12" cols="65" readonly style="font-size:20px;text-align:left;">
+					<textarea class="textarea" rows="8" cols="45" readonly>
 						<%
 							out.println(result.getText());
 						%>

@@ -15,7 +15,7 @@
 	</header>
 	<div class="margin_login">
 		<div class="box4">
-			<form action="/TaskManage/Login method=POST">
+			<form action="/TaskManage/Login" method="POST">
 				<table border="0" align="center">
 					<tr>
 						<td>ID :</td>
