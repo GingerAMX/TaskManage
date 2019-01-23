@@ -42,6 +42,10 @@ public class ManageDAO {
 
 			pstmt = con.prepareStatement(sql);
 
+			if("".equals(grade) || "".equals(cName)){
+				return result;
+			}
+
 			pstmt.setString(1, grade);
 			pstmt.setString(2, cName);
 
@@ -65,6 +69,11 @@ public class ManageDAO {
 				pstmt = con.prepareStatement(sql);
 
 				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
 
 				pstmt.setInt(1, SID);
 				pstmt.setInt(2, SID);
@@ -84,8 +93,8 @@ public class ManageDAO {
 
 					pstmt.executeUpdate();
 
-					result = 2;
-				}else if(result != 0){
+				}else if(result != 0){	//重複するレコードがあった場合
+					result = 0;
 					return result;
 				}
 			//一致するレコードがなかった場合(クラスIDがない)
@@ -106,6 +115,11 @@ public class ManageDAO {
 				pstmt = con.prepareStatement(sql);
 
 				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
 
 				pstmt.setInt(1, SID);
 				pstmt.setInt(2, SID);
@@ -149,14 +163,17 @@ public class ManageDAO {
 
 					pstmt.executeUpdate();
 
-					result = 2;
-				}else if(result != 0){
+				}else if(result != 0){	//重複するレコードがあった場合
+					result = 0;
 					return result;
 				}
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} catch(NumberFormatException e){
+			System.out.println("入力されていない項目があります。");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -201,6 +218,11 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int TID = Integer.parseInt(tID);
+			int check = String.valueOf(TID).length();
+			if(check != 8){
+				result = 2;
+				return result;
+			}
 
 			pstmt.setInt(1, TID);
 			pstmt.setInt(2, TID);
@@ -219,11 +241,16 @@ public class ManageDAO {
 
 				pstmt.executeUpdate();
 
-				result = 2;
+			}else if(result != 0){
+				result = 0;
+				return result;
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} catch(NumberFormatException e){
+			System.out.println("入力されていない項目があります。");
 			e.printStackTrace();
 		} finally {
 			try {

@@ -14,6 +14,7 @@
 		<hr>
 	</header>
 	<main>
+	<center><span >${message}</span></center>
 	<div class="margin_registration">
 		<p id="tabcontrol">
 			<a href="#tabpage1">学生</a> <a href="#tabpage2">教員</a>
@@ -48,6 +49,7 @@
 						<option value="3">3</option>
 					</select> <sub> <input type="submit" class="square_btn"
 						style="font-size: 50px;height:100px;" value="登録">
+						<input type="hidden" name="flg" value="student">
 					</sub>
 				</div>
 			</form>
@@ -69,6 +71,7 @@
 					</table>
 					<sub> <input type="submit" class="square_btn"
 						style="font-size: 50px;height:100px;" value="登録">
+						<input type="hidden" name="flg" value="teacher">
 					</sub>
 				</div>
 			</form>

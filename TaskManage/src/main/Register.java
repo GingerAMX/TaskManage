@@ -41,6 +41,7 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String flg = request.getParameter("flg");
 		//学生
 		String sID = request.getParameter("sID");
 		String sName = request.getParameter("sName");
@@ -52,16 +53,43 @@ public class Register extends HttpServlet {
 		String tName = request.getParameter("tName");
 		String tPass = request.getParameter("tPass");
 
-		if(sID != null){
+		if("student".equals(flg)){		//学生の登録
 			//学生の登録
 			int result = ManageDAO.sRegister(sID,sPass,sName,grade,cName);
-		}else if(tID != null) {
-			int result = ManageDAO.tRegister(tID,tName,tPass);
-		}
+			if(result == 1){			//入力した値にすべて問題がなかった場合
+				String view = "/WEB-INF/view/Login.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}else if(result == 0){		//入力した値に不備があった場合
+				request.setAttribute("message", "⚠重複するID または 入力されていない項目があります⚠");
+				String view = "/WEB-INF/view/Register.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}else if(result == 2){		//IDの入力値が7桁ではなかった場合
+				request.setAttribute("message", "⚠学籍番号の7桁で登録してください⚠");
+				String view = "/WEB-INF/view/Register.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}
 
-		String view = "/WEB-INF/view/Login.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);
+		}else if("teacher".equals(flg)) {		//教員の登録
+			int result = ManageDAO.tRegister(tID,tName,tPass);
+			if(result == 1){					//入力した値にすべて問題がなかった場合
+				String view = "/WEB-INF/view/Login.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}else if(result == 0){				//入力した値に不備があった場合
+				request.setAttribute("message", "⚠重複するID または 入力されていない項目があります⚠");
+				String view = "/WEB-INF/view/Register.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}else if(result == 2){				//IDの入力値が7桁ではなかった場合
+				request.setAttribute("message", "⚠8桁の数字で登録してください⚠");
+				String view = "/WEB-INF/view/Register.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+				dispatcher.forward(request, response);
+			}
+		}
 	}
 
 }
