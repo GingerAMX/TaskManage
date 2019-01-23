@@ -42,6 +42,10 @@ public class ManageDAO {
 
 			pstmt = con.prepareStatement(sql);
 
+			if("".equals(grade) || "".equals(cName)){
+				return result;
+			}
+
 			pstmt.setString(1, grade);
 			pstmt.setString(2, cName);
 
@@ -65,6 +69,11 @@ public class ManageDAO {
 				pstmt = con.prepareStatement(sql);
 
 				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
 
 				pstmt.setInt(1, SID);
 				pstmt.setInt(2, SID);
@@ -84,8 +93,8 @@ public class ManageDAO {
 
 					pstmt.executeUpdate();
 
-					result = 2;
-				}else if(result != 0){
+				}else if(result != 0){	//重複するレコードがあった場合
+					result = 0;
 					return result;
 				}
 			//一致するレコードがなかった場合(クラスIDがない)
@@ -106,6 +115,11 @@ public class ManageDAO {
 				pstmt = con.prepareStatement(sql);
 
 				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
 
 				pstmt.setInt(1, SID);
 				pstmt.setInt(2, SID);
@@ -149,14 +163,17 @@ public class ManageDAO {
 
 					pstmt.executeUpdate();
 
-					result = 2;
-				}else if(result != 0){
+				}else if(result != 0){	//重複するレコードがあった場合
+					result = 0;
 					return result;
 				}
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} catch(NumberFormatException e){
+			System.out.println("入力されていない項目があります。");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -201,6 +218,11 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int TID = Integer.parseInt(tID);
+			int check = String.valueOf(TID).length();
+			if(check != 8){
+				result = 2;
+				return result;
+			}
 
 			pstmt.setInt(1, TID);
 			pstmt.setInt(2, TID);
@@ -219,11 +241,16 @@ public class ManageDAO {
 
 				pstmt.executeUpdate();
 
-				result = 2;
+			}else if(result != 0){
+				result = 0;
+				return result;
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
+			e.printStackTrace();
+		} catch(NumberFormatException e){
+			System.out.println("入力されていない項目があります。");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -265,7 +292,6 @@ public class ManageDAO {
 			int valLen = String.valueOf(val).length();
 
 			if(valLen == 7){							//学生の場合
-				System.out.println("通過");
 				String sql = "SELECT sID, sName, cID "
 						+ "FROM Students "
 						+ "WHERE sID = ? "
@@ -351,8 +377,8 @@ public class ManageDAO {
 
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"user1",
-					"pass1");
+					"Abe",
+					"Dai");
 
 			String sql = "SELECT Task.taskID, Task.taskName, Task.deadline, Teacher.tName "
 					+ "FROM Task "
@@ -522,7 +548,7 @@ public class ManageDAO {
 				}
 
 			}else if(valLen == 8){
-				String sql = "SELECT Task.taskName, Task.TaskID, Class.grade, Class.cName, Task.deadline, Task.text "
+				String sql = "SELECT Task.taskName, Task.TaskID, Class.grade, Class.cName, Task.deadline, Task.text, Task.cID "
 						+ "FROM Task "
 						+ "JOIN Class "
 						+ "ON Task.cID = Class.cID "
@@ -543,7 +569,8 @@ public class ManageDAO {
 					String name = grade + "年" + cName + "組";
 					String text = rs.getString("text");
 					int deadline = rs.getInt("deadline");
-					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,0));
+					int cID = rs.getInt("cID");
+					resultList.add(new TaskContent(taskName,taskID,name,deadline,text,cID));
 				}
 			}
 
@@ -983,8 +1010,8 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int mid = Integer.parseInt(tID);
-			pstmt.setInt(1, mid);
-			pstmt.setString(2, pass);
+			pstmt.setInt(2, mid);
+			pstmt.setString(1, pass);
 
 			rs = pstmt.executeQuery();
 

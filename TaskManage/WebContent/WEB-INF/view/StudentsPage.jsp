@@ -34,7 +34,7 @@
     </header>
     <main>
       <div class="margin_box2">
-        <div class="box2">
+        <div class="box2" style="height:520px;">
             <table class="content_tablelock1">
                 <thead class="task_thead">
                     <tr>

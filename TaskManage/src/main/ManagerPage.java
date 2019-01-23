@@ -92,21 +92,34 @@ public class ManagerPage extends HttpServlet {
 
 		String ID = Integer.toString(id);
 
+		System.out.println(ID + "," + pass);
 		//管理者承認
 		ArrayList<Manager> user = ManageDAO.mLogin(ID,pass);
 		request.setAttribute("manager", user);
 
-		//課題一覧の表示
-		ArrayList<DistributionIndex> result = ManageDAO.distributionIndex(ID);
-		request.setAttribute("resultList", result);
+		if(user.size() != 0){
 
-		ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(ID);
-		request.setAttribute("resultList", resultList);
-		request.setAttribute("key", ID);
+			//課題一覧の表示
+			ArrayList<DistributionIndex> result = ManageDAO.distributionIndex(ID);
+			request.setAttribute("resultList", result);
 
-		String view = "/WEB-INF/view/ManagerPage.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);
+			ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(ID);
+			request.setAttribute("resultList", resultList);
+			request.setAttribute("key", ID);
+
+			String view = "/WEB-INF/view/ManagerPage.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		}else if(user.size() == 0) {
+			ArrayList<DistributionIndex> resultList = ManageDAO.distributionIndex(ID);
+
+			request.setAttribute("resultList", resultList);
+			request.setAttribute("key", ID);
+
+			String view = "/WEB-INF/view/TeacherPage.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

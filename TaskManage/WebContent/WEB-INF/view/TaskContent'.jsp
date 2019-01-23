@@ -15,6 +15,8 @@
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<TaskContent> resultList = (ArrayList<TaskContent>)request.getAttribute("resultList");
 	String[] key = (String[])request.getAttribute("key");
+	String flg = (String)request.getAttribute("flg");
+
 	//日付への変更
 	int i = 0;
 	String[] date;
@@ -25,7 +27,7 @@
 	date[i] = b;
 	%>
     <header>
-        <a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
+        <a href="/TaskManage/Login" class="square_btn" style="float:right">ログアウト</a>
         <h1>課題詳細</h1>
         <hr>
     </header>
@@ -52,35 +54,41 @@
                     </td>
                 </tr>
             </table>
-               <p class="detail"><label>内容<br><textarea class="textarea"name="task_detail" rows="8" cols="45" readonly>
-               		<% out.println(result.getText()); %>
-               </textarea></label></p>
+			<p class="detail">
+				<label>内容<br>
+					<textarea class="textarea" name="task_detail" rows="8" cols="45" readonly>
+						<% out.println(result.getText()); %>
+					</textarea></label>
+			</p>
             <div class="teacher_detail_margin">
                 <div class="teacher_detail1">
                 <%
-                	if(key[2] != null){
-                		out.println("<form action=\"/TaskManage/ManagerPage\" method=\"POST\">");
-                		out.println("<input type=\"submit\" value=\"←\">");
-                		out.println("</form>");
-                	}else {
-	                	out.println("<form action=\"/TaskManage/TeacherPage\" method=\"POST\">");
-	                	out.println("<input type=\"submit\" value=\"←\">");
-	                	out.println("</form>");
-                	}
-                %>
+					if ("true".equals(flg)) {
+						%>
+						<form action="/TaskManage/ManagerPage" method="POST">
+							<input type="submit" value="←" class="square_btn" style="float: left; width: 30%; font-size: 40px;" >
+						</form>
+						<%
+							} else if ("false".equals(flg)) {
+						%>
+						<form action="/TaskManage/TeacherPage" method="POST">
+							<input type="submit" value="←" class="square_btn" style="float: left; width: 30%; font-size: 40px;">
+						</form>
+						<%
+					}
+				%>
                 </div>
                 <div class="teacher_detail2">
-	                <%
-	                out.println("<form action=/TaskManage/Status method=GET>"
-					+ "<input type=submit value=提出状況へ></form>");
-	                %>
+	                <form action="/TaskManage/Status" method="POST">
+		                <input type="hidden" value="<%=flg%>" name="flg">
+		                <input type="submit" value="提出状況へ" class="square_btn" style="float: left; width: 100% ;font-size: 30px;">
+	                </form>
                 </div>
                 <div class="teacher_detail3">
-                <%
-                out.println("<form action=/TaskManage/TaskContent method=POST>"
-				+ "<input type=submit value=×>"
-				+ "<input type=hidden name=taskID value=" + result.getTaskID() + "></form>");
-                %>
+                <form action="/TaskManage/Delete" method="POST">
+					<input type="submit" value="×" class="square_btn" style="float: right; width: 30%; font-size: 40px;">
+					<input type="hidden" name="taskID" value="<%=result.getTaskID()%>">
+				</form>
                 </div>
             </div>
         </div>

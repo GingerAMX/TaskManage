@@ -8,15 +8,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>課題提出状況</title>
 </head>
 <body>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 	<%
 		request.setCharacterEncoding("UTF-8");
 
 		ArrayList<Submitted> submitted = (ArrayList<Submitted>)request.getAttribute("submitted");
 		ArrayList<UnSubmitted> unSubmitted = (ArrayList<UnSubmitted>)request.getAttribute("unSubmitted");
 		ArrayList<TaskContent> resultList = (ArrayList<TaskContent>)request.getAttribute("resultList");
+		String flg = (String)request.getAttribute("flg");
 
 		//日付への変更(課題内容)
 		int i = 0;
@@ -39,51 +41,101 @@
 			j = j + 1;
 		}
 	%>
-
-	<%
-	//課題の情報
-		out.println(result1.getTaskName());
-		out.println(result1.getName());
-		out.println(date[0]);
-	//提出者の一覧 %>
-	<table border="1" align="center">
-		<tr>
-			<th>学籍番号</th><th>学生名</th><th>提出日</th>
-		</tr>
-		<%
-			j = 0;
-			while(j < submitted.size()) {
-				Submitted result = (Submitted)submitted.get(j);
-				out.println("<tr>");
-				out.println("<td>" + result.getsID() +
-						"</td>" + "<td>" + result.getsName() + "</td>" + "<td>" + date2[j] + "</td>");
-				out.println("<tr>");
-				j = j + 1;
-			}
-		%>
-	</table>
-
-	<% //未提出者の一覧 %>
-	<table border="1" align="center">
-		<tr>
-			<th>学籍番号</th><th>学生名</th>
-		</tr>
-	<%
-		j = 0;
-		while(j < unSubmitted.size()) {
-			UnSubmitted result = (UnSubmitted)unSubmitted.get(j);
-			out.println("<tr>");
-			out.println("<td>" + result.getsID() +
-					"</td>" + "<td>" + result.getsName() + "</td>");
-			out.println("<tr>");
-			j = j + 1;
-		}
-	%>
-	</table>
-	<%
-		out.println("<form action=\"/TaskManage/TaskContent\" method=\"POST\">");
-	    out.println("<input type=\"submit\" value=\"←\">");
-	    out.println("</form>");
-	%>
+	<header>
+		<a href="/TaskManage/Login" class="square_btn" style="float: right">ログアウト</a>
+		<h1>課題提出状況</h1>
+		<hr>
+	</header>
+	<main>
+	<%//提出者の一覧 %>
+	<div class="margin_box2" style="height:520px;">
+		<div class="box2">
+			<table class="task">
+				<tr>
+					<th>課題名</th>
+					<td>
+						<%
+							out.println(result1.getTaskName());
+						%>
+					</td>
+				</tr>
+				<tr>
+					<th>配布先</th>
+					<td>
+						<%
+							out.println(result1.getName());
+						%>
+					</td>
+				</tr>
+				<tr>
+					<th>期限</th>
+					<td>
+						<%
+							out.println(date[0]);
+						%>
+					</td>
+				</tr>
+			</table>
+			<div class="tasl_status">
+				<div class="intro_margin">
+					<div class="introduction">
+						<table class="content_tablelock2">
+							<thead class="task_thead2">
+								<tr>
+									<th class="Distribution_Number">学籍番号</th>
+									<th class="Task_Distribution">課題提出者</th>
+									<th class="Submission_Day">提出日時</th>
+								</tr>
+							</thead>
+							<tbody class="task_tbody2">
+								<%
+									j = 0;
+									while(j < submitted.size()) {
+										Submitted result = (Submitted)submitted.get(j);%>
+										<tr>
+											<td class="Distribution_Number"><%=result.getsID()%></td>
+											<td class="Task_Distribution"><%=result.getsName() %></td>
+											<td class="Submission_Day"><%=date2[j] %></td>
+										<tr>
+									<%	j = j + 1;
+									}
+								%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<% //未提出者の一覧 %>
+				<div class="no_introduction">
+					<table class="content_tablelock3">
+						<thead class="task_thead2">
+							<tr>
+								<th class="No_Submission_Number">学籍番号</th>
+								<th class="No_Submission">課題未提出者</th>
+							</tr>
+						</thead>
+						<tbody class="task_tbody3">
+							<%
+								j = 0;
+								while (j < unSubmitted.size()) {
+									UnSubmitted result = (UnSubmitted) unSubmitted.get(j);%>
+									<tr>
+										<td class="No_Submission_Number"><%=result.getsID()%></td>
+										<td class="No_Submission"><%=result.getsName()%></td>
+									<tr>
+								<%	j = j + 1;
+								}%>
+					</table>
+				</div>
+			</div>
+			<div class="margin_top">
+				<form action="/TaskManage/TaskContent" method="POST">
+				    <input type="submit" value="←" class="square_btn" style="float:left; margin:0 0 10 100;">
+				    <input type="hidden" value="<%=flg%>" name="flg">
+				</form>
+			</div>
+		</div>
+	</div>
+	</main>
 </body>
+</head>
 </html>

@@ -60,7 +60,7 @@
 											<tr>
 												<td>
 													<input type=hidden name="tID" value="<%=result.getUserID()%>">
-													<input type="button" value="<%=result.getUser()%>" onclick="authority(<%=result.getUserID()%>);">
+													<input type="button" style="font-size: 35px;"value="<%=result.getUser()%>" onclick="authority(<%=result.getUserID()%>);">
 												</td>
 												<td>
 													<input class=select_delete type=checkbox name=userID value=<%=result.getUserID()%>>

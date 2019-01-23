@@ -13,6 +13,7 @@
 		request.setCharacterEncoding("UTF-8");
 		String zipPath = (String) request.getAttribute("zipPath");
 		String flg = (String) request.getAttribute("flg");
+		System.out.println(flg);
 	%>
 	<header>
 		<a href="#" class="square_btn" style="float: right">ログアウト</a>
@@ -23,15 +24,15 @@
 	<div class="file_acquisition">
 		<div class="box">
 			<form action="/TaskManage/Download" method="post">
-				<p>
+				<p style="font-size:35px;">
 					課題名 ：<label class="download_file"><input type="text"
 						name="taskName" class="file_input"></label>
 				</p>
-				<p>
-					学 年 ：<label class="download_file"><input type="text"
+				<p style="font-size:35px;">
+					学　年 ：<label class="download_file"><input type="text"
 						name="grade" class="file_input"></label>
 				</p>
-				<p>
+				<p style="font-size:35px;">
 					クラス ：<label class="download_file"><input type="text"
 						name="class" class="file_input"></label>
 				</p>
@@ -43,9 +44,6 @@
 				</div>
 			</form>
 			<div class="margin_bottom">
-			<div class="download_margin">
-				<a href="<%=zipPath%>"  class="square_btn">ダウンロード</a>
-			</div>
 			<div class="under_margin">
 				<%
 					if ("true".equals(flg)) {
