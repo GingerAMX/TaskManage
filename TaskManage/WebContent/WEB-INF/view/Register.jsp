@@ -14,7 +14,7 @@
 		<hr>
 	</header>
 	<main>
-	<center><span >${message}</span></center>
+	<center><span style="color: red;">${message}</span></center>
 	<div class="margin_registration">
 		<p id="tabcontrol">
 			<a href="#tabpage1">学生</a> <a href="#tabpage2">教員</a>

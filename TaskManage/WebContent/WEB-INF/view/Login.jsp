@@ -8,15 +8,16 @@
 	href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
-	<main>
 	<header>
 		<h1>ログイン</h1>
 		<hr>
 	</header>
+	<main>
+	<center><span style="color: red;">${message}</span></center>
 	<div class="margin_login">
 		<div class="box4">
 			<form action="/TaskManage/Login" method="POST">
-				<table border="0" align="center">
+				<table>
 					<tr>
 						<td>ID :</td>
 						<td><input type="text" name="ID" maxlength="8" placeholder="文字制限8字まで"></td>
