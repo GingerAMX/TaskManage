@@ -88,8 +88,24 @@ public class Login extends HttpServlet {
 		cookie.setMaxAge(60 * 60 * 24 * 90);
 		response.addCookie(cookie);
 
+		if("".equals(ID) || "".equals(pass)){
+			request.setAttribute("message", "⚠ID または パスワードが未入力です⚠");
+
+			String view = "/WEB-INF/view/Login.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		}
+
 		//ログイン処理
 		ArrayList<dto.Login> result = ManageDAO.login(ID,pass);
+
+		if(result.size() == 0){
+			request.setAttribute("message", "⚠ID または パスワードが違います⚠");
+
+			String view = "/WEB-INF/view/Login.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		}
 
 		dto.Login mid = (dto.Login)result.get(0);
 		int id = mid.getId();
