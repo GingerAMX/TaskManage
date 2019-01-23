@@ -8,20 +8,20 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <header>
-	<a href="/TaskManage/Login" class="square_btn"style="float:right">ログアウト</a>
+	<a href="/TaskManage/Login" class="square_btn"style="height:34px;width:144px;float:right;font-size:28px;">ログアウト</a>
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String flg = (String)request.getAttribute("flg");
 		if ("true".equals(flg)) {
 		%>
 			<form action="/TaskManage/ManagerPage" method="POST">
-				<input type="submit" value="←" class="square_btn" style="height: 60px;">
+				<input type="submit" value="←" class="square_btn" style="height: 70px;height:66px; float:right;">
 			</form>
 		<%
 		} else if ("false".equals(flg)) {
 		%>
 			<form action="/TaskManage/TeacherPage" method="POST">
-				<input type="submit" value="←" class="square_btn" style="height: 60px;">
+				<input type="submit" value="←" class="square_btn" style="height: 70px;height:66px; float:right;">
 			</form>
 		<%
 		}

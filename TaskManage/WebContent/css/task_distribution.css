@@ -35,6 +35,7 @@ header .square_btn {
     background: #e1f3ff;
     transition: .4s;
     margin-right: 80px;
+    margin-right: 80px;
     font-size: 35px;
     width: 180px;
 }
@@ -68,7 +69,7 @@ header .square_btn {
     margin: 0px 0px 0px 13px;
 }
 .square_btn {
-    font-size: 30px;
+	font-size:30px;
     text-align: center;
     width: 130px;
     height: 60px;

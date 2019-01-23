@@ -56,9 +56,9 @@
             </table>
 			<p class="detail">
 				<label>内容<br>
-				<textarea class="textarea" name="task_detail" rows="8" cols="45" readonly>
-					<% out.println(result.getText()); %>
-				</textarea></label>
+					<textarea class="textarea" name="task_detail" rows="8" cols="45" readonly>
+						<% out.println(result.getText()); %>
+					</textarea></label>
 			</p>
             <div class="teacher_detail_margin">
                 <div class="teacher_detail1">
