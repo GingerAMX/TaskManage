@@ -76,7 +76,7 @@
 					</td>
 				</tr>
 			</table>
-			<div class="tasl_status">
+			<div class="task_status" style="margin-top:20px;margin-left:25px;">
 				<div class="intro_margin">
 					<div class="introduction">
 						<table class="content_tablelock2">
@@ -127,9 +127,9 @@
 					</table>
 				</div>
 			</div>
-			<div class="margin_top">
+			<div class="margin_top" style="margin-left:100px;">
 				<form action="/TaskManage/TaskContent" method="POST">
-				    <input type="submit" value="←" class="square_btn" style="float:left; margin:0 0 10 100;">
+				    <input type="submit" value="←" class="square_btn" style="float:left;width:80px;">
 				    <input type="hidden" value="<%=flg%>" name="flg">
 				</form>
 			</div>
