@@ -16,7 +16,6 @@ import dto.TaskContent;
 import dto.TaskIndex;
 import dto.UnSubmitted;
 import dto.UserIndex;
-import dto.Zip;
 
 public class ManageDAO {
 	//学生新規登録
@@ -662,14 +661,12 @@ public class ManageDAO {
 		}
 	}
 	//テキストファイル格納場所のパスの取得
-	public static ArrayList<Zip> download(String taskName, String grade, String cName) {
-		ArrayList<Download> mid = new ArrayList<Download>();
-		ArrayList<Zip> resultList = new ArrayList<Zip>();
+	public static ArrayList<dto.Download> download(String taskName, String grade, String cName) {
+		ArrayList<Download> result = new ArrayList<Download>();
+		ArrayList<TaskContent> mid = new ArrayList<TaskContent>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs;
-		String result = null;
-
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -691,10 +688,10 @@ public class ManageDAO {
 
 			while(rs.next() == true) {
 				int cID = rs.getInt("cID");
-				mid.add(new Download(cID,0,null));
+				mid.add(new TaskContent(null,0,null,0,null,cID));
 			}
 
-			Download key = (Download)mid.get(0);
+			TaskContent key = (TaskContent)mid.get(0);
 			int cID = key.getcID();
 
 			//課題IDの取得
@@ -708,14 +705,18 @@ public class ManageDAO {
 
 			while(rs.next() == true) {
 				int taskID = rs.getInt("taskID");
-				mid.add(new Download(0,taskID,null));
+				result.add(new Download(taskID,null,null));
 			}
 
-			key = (Download)mid.get(1);
-			int taskID = key.getTaskID();
+			Download key2 = (Download)result.get(0);
+			int taskID = key2.getTaskID();
 
 			//ダウンロードファイルの取得
-			sql = "SELECT text FROM TaskManage WHERE cID = ? AND taskID = ?";
+			sql = "SELECT Students.sName, TaskManage.text "
+					+ "FROM TaskManage "
+					+ "JOIN Students "
+					+ "ON Students.sID = TaskManage.sID "
+					+ "WHERE TaskManage.cID = ? AND TaskManage.taskID = ?";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -725,13 +726,18 @@ public class ManageDAO {
 			rs = pstmt.executeQuery();
 
 			while(rs.next() == true) {
-				result = rs.getString("text");
-				resultList.add(new Zip(result));
+				String sName = rs.getString("sName");
+				String path = rs.getString("text");
+				result.add(new Download(0,sName,path));
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
 			e.printStackTrace();
+		}catch(NullPointerException e){
+			System.out.println("Error！！Nullが値として入れられている箇所があります。");
+			e.printStackTrace();
+			return result;
 		} finally {
 			try {
 				if( pstmt != null){
@@ -751,7 +757,7 @@ public class ManageDAO {
 				e.printStackTrace();
 			}
 		}
-		return resultList;
+		return result;
 	}
 	//課題配布
 	public static void distribute(String taskName, String content, String tID, String grade, String cName, String deadline) {
