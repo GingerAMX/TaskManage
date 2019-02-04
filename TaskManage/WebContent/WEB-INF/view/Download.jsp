@@ -41,7 +41,7 @@
 				</p>
 				<p style="font-size:35px; margin: 10px 0;">
 					クラス ：<label class="download_file">
-						<select name="cName" class="select_btn">
+						<select name="class" class="select_btn">
 								<option value="" selected>クラス</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
