@@ -30,7 +30,12 @@ header .square_btn {
     min-width: 400px;
     display: inline-block;
     position: relative;
-    top: -121px;
+    top: -107px;
+}
+.box .select_btn{
+    font-size: 30;
+    width: 300;
+    height: 50;
 }
 .sub_content {
 	text-align: center;
@@ -44,13 +49,26 @@ header .square_btn {
     display: inline-block;
 }
 .sub_content table{
-	overflow-y: scroll;
 	text-aling: center;
 	width: 100%;
 	height: 100%;
+	border-collapse: collapse;
 }
-.sub_content table tr{
+.sub_content thead, tbody {
+	table-layout: fixed;
+    border: 1px solid;
+    text-align: center;
+}
+.sub_content tbody{
+	height: 332px;
 	text-align: center;
+	overflow-y: scroll;
+	min-height: 360px;
+    min-width: 290px;
+}
+.sub_content tr{
+	display: table-row;
+	vertical-align: inherit;
 }
 .download_file {
     font-size: 50px;

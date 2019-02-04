@@ -28,13 +28,26 @@
 					課題名 ：<label class="download_file"><input type="text"
 						name="taskName" class="file_input"></label>
 				</p>
-				<p style="font-size:35px;">
-					学　年 ：<label class="download_file"><input type="text"
-						name="grade" class="file_input"></label>
+				<p style="font-size:35px; margin: 0;">
+					学　年 ：<label class="download_file">
+						<select name="grade" class="select_btn">
+							<option value="" selected>学年</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</label>
 				</p>
-				<p style="font-size:35px;">
-					クラス ：<label class="download_file"><input type="text"
-						name="class" class="file_input"></label>
+				<p style="font-size:35px; margin: 10px 0;">
+					クラス ：<label class="download_file">
+						<select name="cName" class="select_btn">
+								<option value="" selected>クラス</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+						</select>
+					</label>
 				</p>
 				<div class="margin_bottom">
 					<div class="under_margin">
@@ -67,10 +80,13 @@
 		</div>
 		<div class="sub_content">
 			<table border="1">
-				<tr>
-					<th>提出者名</th>
-					<th>提出ファイル</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>提出者名</th>
+						<th>提出ファイル</th>
+					</tr>
+				</thead>
+				<tbody>
 			<%	if(result == null || result.size() == 0){
 				}else{
 					for(int i = 0; i < result.size(); i++){
@@ -86,6 +102,7 @@
 					<%	}
 					}
 				}%>
+				</tbody>
 			</table>
 		</div>
 	</div>

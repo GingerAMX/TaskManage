@@ -12,6 +12,7 @@ pageEncoding="UTF-8"%>
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String flg = (String)request.getAttribute("flg");
+	String message = (String)request.getAttribute("message");
 		if ("true".equals(flg)) {
 		%>
 			<form action="/TaskManage/ManagerPage" method="POST">
@@ -30,6 +31,7 @@ pageEncoding="UTF-8"%>
 	<hr>
 </header>
 	<main>
+		<center><span style="color: red;">${message}</span></center>
 		<div class="task_distribution_margin">
 			<div class="box">
 				<form action="/TaskManage/Distribute" method="POST">

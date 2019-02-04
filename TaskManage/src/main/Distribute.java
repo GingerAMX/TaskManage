@@ -74,7 +74,10 @@ public class Distribute extends HttpServlet {
 		}
 		String tID = Integer.toString(id);
 
-		if(taskName != null && content != null && tID != null){
+		if("".equals(tID) || "".equals(taskName) || "".equals(content) || "".equals(grade) || "".equals(cName) || "".equals(deadline)){
+			String message = "⚠入力されていない箇所があります⚠";
+			request.setAttribute("message", message);
+		}else{
 			ManageDAO.distribute(taskName,content,tID,grade,cName,deadline);
 		}
 		request.setAttribute("flg", flg);
