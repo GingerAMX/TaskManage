@@ -97,7 +97,7 @@ public class Submit extends HttpServlet {
 				System.out.println("ファイル出力error");
 				e.printStackTrace();
 			}
-			String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
+			String textPath = "/WEB-INF/uploaded" + "\\" + name;
 
 			// DAOにデータの送信
 			ManageDAO.submit(taskID, cID, sID, textPath);

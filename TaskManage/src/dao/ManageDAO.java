@@ -59,45 +59,8 @@ public class ManageDAO {
 				num[2] = num3;
 			}
 
-			//学年とクラスが一致したレコードがあった場合(クラスIDが存在)
-			if(num[0] != null) {
-				int mid = Integer.parseInt(num[0]);
-				//学生テーブルの検索
-				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
-
-				pstmt = con.prepareStatement(sql);
-
-				int SID = Integer.parseInt(sID);
-				int check = String.valueOf(SID).length();
-				if(check != 7){
-					result = 2;
-					return result;
-				}
-
-				pstmt.setInt(1, SID);
-				pstmt.setInt(2, SID);
-
-				result = pstmt.executeUpdate();
-
-				//学生の情報の登録
-				if(result == 0) {
-					sql = "INSERT INTO Students VALUES(?,?,?,?)";
-
-					pstmt = con.prepareStatement(sql);
-
-					pstmt.setInt(1, SID);
-					pstmt.setString(2, sName);
-					pstmt.setString(3,pass);
-					pstmt.setInt(4, mid);
-
-					pstmt.executeUpdate();
-
-				}else if(result != 0){	//重複するレコードがあった場合
-					result = 0;
-					return result;
-				}
 			//一致するレコードがなかった場合(クラスIDがない)
-			}else if(num[0] == null) {
+			if("".equals(num[0]) || num[0] == null) {
 				//クラスIDの登録
 				sql = "INSERT INTO Class VALUES(0,?,?)";
 
@@ -162,7 +125,45 @@ public class ManageDAO {
 
 					pstmt.executeUpdate();
 
-				}else if(result != 0){	//重複するレコードがあった場合
+				}else if(result > 0){	//重複するレコードがあった場合
+					result = 0;
+					return result;
+				}
+			//学年とクラスが一致したレコードがあった場合(クラスIDが存在)
+			}else if(num[0] != "0" || num[0] != null) {
+
+				int mid = Integer.parseInt(num[0]);
+				//学生テーブルの検索
+				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
+
+				pstmt.setInt(1, SID);
+				pstmt.setInt(2, SID);
+
+				result = pstmt.executeUpdate();
+
+				//学生の情報の登録
+				if(result == 0) {
+					sql = "INSERT INTO Students VALUES(?,?,?,?)";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, SID);
+					pstmt.setString(2, sName);
+					pstmt.setString(3,pass);
+					pstmt.setInt(4, mid);
+
+					pstmt.executeUpdate();
+
+				}else if(0 < result){	//重複するレコードがあった場合
 					result = 0;
 					return result;
 				}
