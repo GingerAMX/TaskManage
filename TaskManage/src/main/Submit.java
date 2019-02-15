@@ -87,7 +87,6 @@ public class Submit extends HttpServlet {
 		Part part = request.getPart("file");
 		if (part != null) {
 			String name = this.getFileName(part);
-			System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
 			// ファイルの保存 パス変更箇所(サーバ接続時)
 			try {

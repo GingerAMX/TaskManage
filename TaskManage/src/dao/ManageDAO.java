@@ -123,7 +123,7 @@ public class ManageDAO {
 					pstmt.setString(3,pass);
 					pstmt.setInt(4, mid);
 
-					pstmt.executeUpdate();
+					result = pstmt.executeUpdate();
 
 				}else if(result > 0){	//重複するレコードがあった場合
 					result = 0;
@@ -161,7 +161,7 @@ public class ManageDAO {
 					pstmt.setString(3,pass);
 					pstmt.setInt(4, mid);
 
-					pstmt.executeUpdate();
+					result = pstmt.executeUpdate();
 
 				}else if(0 < result){	//重複するレコードがあった場合
 					result = 0;
@@ -1347,7 +1347,6 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int id = Integer.parseInt(takeover);
-			System.out.println(id);
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);
