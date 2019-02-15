@@ -16,7 +16,6 @@ import dto.TaskContent;
 import dto.TaskIndex;
 import dto.UnSubmitted;
 import dto.UserIndex;
-import dto.Zip;
 
 public class ManageDAO {
 	//学生新規登録
@@ -60,45 +59,8 @@ public class ManageDAO {
 				num[2] = num3;
 			}
 
-			//学年とクラスが一致したレコードがあった場合(クラスIDが存在)
-			if(num[0] != null) {
-				int mid = Integer.parseInt(num[0]);
-				//学生テーブルの検索
-				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
-
-				pstmt = con.prepareStatement(sql);
-
-				int SID = Integer.parseInt(sID);
-				int check = String.valueOf(SID).length();
-				if(check != 7){
-					result = 2;
-					return result;
-				}
-
-				pstmt.setInt(1, SID);
-				pstmt.setInt(2, SID);
-
-				result = pstmt.executeUpdate();
-
-				//学生の情報の登録
-				if(result == 0) {
-					sql = "INSERT INTO Students VALUES(?,?,?,?)";
-
-					pstmt = con.prepareStatement(sql);
-
-					pstmt.setInt(1, SID);
-					pstmt.setString(2, sName);
-					pstmt.setString(3,pass);
-					pstmt.setInt(4, mid);
-
-					pstmt.executeUpdate();
-
-				}else if(result != 0){	//重複するレコードがあった場合
-					result = 0;
-					return result;
-				}
 			//一致するレコードがなかった場合(クラスIDがない)
-			}else if(num[0] == null) {
+			if("".equals(num[0]) || num[0] == null) {
 				//クラスIDの登録
 				sql = "INSERT INTO Class VALUES(0,?,?)";
 
@@ -161,9 +123,47 @@ public class ManageDAO {
 					pstmt.setString(3,pass);
 					pstmt.setInt(4, mid);
 
-					pstmt.executeUpdate();
+					result = pstmt.executeUpdate();
 
-				}else if(result != 0){	//重複するレコードがあった場合
+				}else if(result > 0){	//重複するレコードがあった場合
+					result = 0;
+					return result;
+				}
+			//学年とクラスが一致したレコードがあった場合(クラスIDが存在)
+			}else if(num[0] != "0" || num[0] != null) {
+
+				int mid = Integer.parseInt(num[0]);
+				//学生テーブルの検索
+				sql = "UPDATE Students SET sID = ? WHERE sID = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				int SID = Integer.parseInt(sID);
+				int check = String.valueOf(SID).length();
+				if(check != 7){
+					result = 2;
+					return result;
+				}
+
+				pstmt.setInt(1, SID);
+				pstmt.setInt(2, SID);
+
+				result = pstmt.executeUpdate();
+
+				//学生の情報の登録
+				if(result == 0) {
+					sql = "INSERT INTO Students VALUES(?,?,?,?)";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, SID);
+					pstmt.setString(2, sName);
+					pstmt.setString(3,pass);
+					pstmt.setInt(4, mid);
+
+					result = pstmt.executeUpdate();
+
+				}else if(0 < result){	//重複するレコードがあった場合
 					result = 0;
 					return result;
 				}
@@ -662,14 +662,12 @@ public class ManageDAO {
 		}
 	}
 	//テキストファイル格納場所のパスの取得
-	public static ArrayList<Zip> download(String taskName, String grade, String cName) {
-		ArrayList<Download> mid = new ArrayList<Download>();
-		ArrayList<Zip> resultList = new ArrayList<Zip>();
+	public static ArrayList<dto.Download> download(String taskName, String grade, String cName) {
+		ArrayList<Download> result = new ArrayList<Download>();
+		ArrayList<TaskContent> mid = new ArrayList<TaskContent>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs;
-		String result = null;
-
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -691,10 +689,10 @@ public class ManageDAO {
 
 			while(rs.next() == true) {
 				int cID = rs.getInt("cID");
-				mid.add(new Download(cID,0,null));
+				mid.add(new TaskContent(null,0,null,0,null,cID));
 			}
 
-			Download key = (Download)mid.get(0);
+			TaskContent key = (TaskContent)mid.get(0);
 			int cID = key.getcID();
 
 			//課題IDの取得
@@ -708,14 +706,18 @@ public class ManageDAO {
 
 			while(rs.next() == true) {
 				int taskID = rs.getInt("taskID");
-				mid.add(new Download(0,taskID,null));
+				result.add(new Download(taskID,null,null));
 			}
 
-			key = (Download)mid.get(1);
-			int taskID = key.getTaskID();
+			Download key2 = (Download)result.get(0);
+			int taskID = key2.getTaskID();
 
 			//ダウンロードファイルの取得
-			sql = "SELECT text FROM TaskManage WHERE cID = ? AND taskID = ?";
+			sql = "SELECT Students.sName, TaskManage.text "
+					+ "FROM TaskManage "
+					+ "JOIN Students "
+					+ "ON Students.sID = TaskManage.sID "
+					+ "WHERE TaskManage.cID = ? AND TaskManage.taskID = ?";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -725,13 +727,18 @@ public class ManageDAO {
 			rs = pstmt.executeQuery();
 
 			while(rs.next() == true) {
-				result = rs.getString("text");
-				resultList.add(new Zip(result));
+				String sName = rs.getString("sName");
+				String path = rs.getString("text");
+				result.add(new Download(0,sName,path));
 			}
 
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
 			e.printStackTrace();
+		}catch(NullPointerException e){
+			System.out.println("Error！！Nullが値として入れられている箇所があります。");
+			e.printStackTrace();
+			return result;
 		} finally {
 			try {
 				if( pstmt != null){
@@ -751,7 +758,7 @@ public class ManageDAO {
 				e.printStackTrace();
 			}
 		}
-		return resultList;
+		return result;
 	}
 	//課題配布
 	public static void distribute(String taskName, String content, String tID, String grade, String cName, String deadline) {
@@ -1340,7 +1347,6 @@ public class ManageDAO {
 			pstmt = con.prepareStatement(sql);
 
 			int id = Integer.parseInt(takeover);
-			System.out.println(id);
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);

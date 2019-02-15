@@ -87,7 +87,6 @@ public class Submit extends HttpServlet {
 		Part part = request.getPart("file");
 		if (part != null) {
 			String name = this.getFileName(part);
-			System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
 			// ファイルの保存 パス変更箇所(サーバ接続時)
 			try {
@@ -97,7 +96,7 @@ public class Submit extends HttpServlet {
 				System.out.println("ファイル出力error");
 				e.printStackTrace();
 			}
-			String textPath = getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name;
+			String textPath = "/WEB-INF/uploaded" + "\\" + name;
 
 			// DAOにデータの送信
 			ManageDAO.submit(taskID, cID, sID, textPath);

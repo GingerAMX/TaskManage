@@ -92,7 +92,6 @@ public class ManagerPage extends HttpServlet {
 
 		String ID = Integer.toString(id);
 
-		System.out.println(ID + "," + pass);
 		//管理者承認
 		ArrayList<Manager> user = ManageDAO.mLogin(ID,pass);
 		request.setAttribute("manager", user);

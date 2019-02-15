@@ -13,19 +13,62 @@ header .square_btn {
     width: 180px;
 }
 .file_acquisition {
-    margin : 60 0 0 300;
+    margin : auto;
+    width: 970px;
+    height: 500px;
 }
 
 .box {
     text-align: center;
     background-color: #FFFFFF;
     border: 2px solid;
-    width: 600px;
+    width: 60%;
     height: 360px;
     padding: 5px 10px;
     text-decoration: none;
     min-height: 30px;
     min-width: 400px;
+    display: inline-block;
+    position: relative;
+    top: -107px;
+}
+.box .select_btn{
+    font-size: 30;
+    width: 300;
+    height: 50;
+}
+.sub_content {
+	text-align: center;
+    background-color: #FFFFFF;
+    width: 30%;
+    height: 360px;
+    border: 2px solid;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin: 5% 0 0 4%;
+    display: inline-block;
+}
+.sub_content table{
+	text-aling: center;
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+.sub_content thead, tbody {
+	table-layout: fixed;
+    border: 1px solid;
+    text-align: center;
+}
+.sub_content tbody{
+	height: 332px;
+	text-align: center;
+	overflow-y: scroll;
+	min-height: 360px;
+    min-width: 290px;
+}
+.sub_content tr{
+	display: table-row;
+	vertical-align: inherit;
 }
 .download_file {
     font-size: 50px;
@@ -46,7 +89,7 @@ input[type=text] {
     width: 100%;
 }
 .under_margin {
-    width: 25%;
+	width: 50%;
     float: left;
 }
 .download_margin {

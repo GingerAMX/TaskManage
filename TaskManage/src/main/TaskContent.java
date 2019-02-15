@@ -105,7 +105,6 @@ public class TaskContent extends HttpServlet {
 					// taskというcookieがあるか
 					if (c.getName().equals("task")) {
 						taskID = c.getValue();
-						System.out.println(taskID);
 						// 新しくtaskをキーにしてCookieを生成する
 						cookie = new Cookie("task", taskID);
 						// cookieの有効期限を秒で設定(下は90日)

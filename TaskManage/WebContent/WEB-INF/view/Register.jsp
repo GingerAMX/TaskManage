@@ -10,6 +10,7 @@
 </head>
 <body>
 	<header>
+		<a href="/TaskManage/Login" class="square_btn"style="float: right;width:100px;">←</a>
 		<h1>新規登録</h1>
 		<hr>
 	</header>

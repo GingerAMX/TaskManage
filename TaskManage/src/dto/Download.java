@@ -1,26 +1,18 @@
 package dto;
 
 public class Download {
-	private int cID;
 	private int taskID;
+	private String sName;
 	private String path;
 
 	public Download(){
 
 	}
 
-	public Download(int cID, int taskID, String path) {
-		this.cID = cID;
+	public Download(int taskID, String sName, String path) {
 		this.taskID = taskID;
+		this.sName = sName;
 		this.path = path;
-	}
-
-	public int getcID() {
-		return cID;
-	}
-
-	public void setcID(int cID) {
-		this.cID = cID;
 	}
 
 	public int getTaskID() {
@@ -31,6 +23,14 @@ public class Download {
 		this.taskID = taskID;
 	}
 
+	public String getsName() {
+		return sName;
+	}
+
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -38,5 +38,6 @@ public class Download {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
 
 }
