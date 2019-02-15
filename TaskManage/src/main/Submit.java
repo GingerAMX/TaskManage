@@ -18,7 +18,7 @@ import dao.ManageDAO;
  * Servlet implementation class Submit
  */
 @WebServlet("/Submit")
-@MultipartConfig(location = "c:/tmp", maxFileSize = 1048576)
+@MultipartConfig(location = "/tmp", maxFileSize = 1048576)
 public class Submit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -87,16 +87,17 @@ public class Submit extends HttpServlet {
 		Part part = request.getPart("file");
 		if (part != null) {
 			String name = this.getFileName(part);
+			System.out.println(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
 			// ファイルの保存 パス変更箇所(サーバ接続時)
 			try {
-				part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "\\" + name);
+				part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 
 			} catch (IOException e) {
 				System.out.println("ファイル出力error");
 				e.printStackTrace();
 			}
-			String textPath = "/WEB-INF/uploaded" + "\\" + name;
+			String textPath = "/WEB-INF/uploaded" + "/" + name;
 
 			// DAOにデータの送信
 			ManageDAO.submit(taskID, cID, sID, textPath);

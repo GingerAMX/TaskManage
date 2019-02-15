@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/TaskManage"
+                 docBase="TaskManage"
+                 workDir="/usr/share/tomcat8/webapps/TaskManage"
+                 reloadable="true">
+
+    <Resource name="jdbc/myapp"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false"
+              username="jyobi_user"
+              password="jyobijyobi" />
+</Context>

@@ -30,9 +30,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			//クラステーブル内の検索
 			String sql = "SELECT Class.cID, Class.grade, Class.cName "
@@ -123,7 +123,7 @@ public class ManageDAO {
 					pstmt.setString(3,pass);
 					pstmt.setInt(4, mid);
 
-					result = pstmt.executeUpdate();
+					pstmt.executeUpdate();
 
 				}else if(result > 0){	//重複するレコードがあった場合
 					result = 0;
@@ -161,7 +161,7 @@ public class ManageDAO {
 					pstmt.setString(3,pass);
 					pstmt.setInt(4, mid);
 
-					result = pstmt.executeUpdate();
+					pstmt.executeUpdate();
 
 				}else if(0 < result){	//重複するレコードがあった場合
 					result = 0;
@@ -209,9 +209,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "UPDATE Teacher SET tID = ? WHERE tID = ?";
 
@@ -284,9 +284,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			int val = Integer.parseInt(ID);
 			int valLen = String.valueOf(val).length();
@@ -376,9 +376,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT Task.taskID, Task.taskName, Task.deadline, Teacher.tName "
 					+ "FROM Task "
@@ -447,9 +447,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT Task.taskID, Task.taskName, Task.deadline, Class.grade, Class.cName "
 					+ "FROM Task "
@@ -519,9 +519,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			if(valLen == 7){
 				String sql = "SELECT Task.taskName, Task.taskID, Teacher.tName, Task.deadline, Task.text, Task.cID "
@@ -619,9 +619,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "INSERT INTO TaskManage VALUES(null,?,?,?,now(),?)";
 
@@ -673,12 +673,12 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			//クラスIDの取得
-			String sql = "SELECT cID FROM class WHERE grade = ? AND cName = ?";
+			String sql = "SELECT cID FROM Class WHERE grade = ? AND cName = ?";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -732,6 +732,7 @@ public class ManageDAO {
 				result.add(new Download(0,sName,path));
 			}
 
+
 		} catch(SQLException | ClassNotFoundException e){
 			System.out.println("DBアクセスに失敗しました。");
 			e.printStackTrace();
@@ -770,9 +771,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT cID FROM Class WHERE grade = ? AND cName = ?";
 
@@ -836,9 +837,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT Students.sID, Students.sName, TaskManage.date "
 					+ "FROM Students "
@@ -908,9 +909,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			//学生の一覧の取得
 			String sql = "SELECT DISTINCT Students.sID, Students.sName "
@@ -1006,9 +1007,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT Teacher.tID, Teacher.tName "
 					+ "FROM Teacher "
@@ -1073,9 +1074,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			if("".equals(grade) && "".equals(cName)){
 				//教員レコードの取得
@@ -1165,9 +1166,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 			//値の長さを求める
 			int valLen = String.valueOf(user[0]).length();
 
@@ -1234,9 +1235,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT tID, tName, mPass FROM Teacher WHERE tID = ?";
 
@@ -1291,9 +1292,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "UPDATE Teacher SET mPass = ? WHERE tID = ?";
 
@@ -1338,15 +1339,16 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "UPDATE Teacher SET mPass = ? WHERE tID = ?";
 
 			pstmt = con.prepareStatement(sql);
 
 			int id = Integer.parseInt(takeover);
+			System.out.println(id);
 
 			pstmt.setString(1, "");
 			pstmt.setInt(2, id);
@@ -1385,9 +1387,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "DELETE FROM Task WHERE taskID = ?";
 
@@ -1432,9 +1434,9 @@ public class ManageDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/TaskManageDB?useSSL=false",
-					"Abe",
-					"Dai");
+					"jdbc:mysql://db.c4jmxquab2wq.ap-northeast-1.rds.amazonaws.com:3306/jyobiDB?useSSL=false",
+					"jyobi_user",
+					"jyobijyobi");
 
 			String sql = "SELECT cID FROM Students WHERE sID = ?";
 

@@ -72,7 +72,8 @@ public class Register extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 
-		}else if("teacher".equals(flg)) {		//教員の登録
+		}else if("teacher".equals(flg)) {
+			//教員の登録
 			int result = ManageDAO.tRegister(tID,tName,tPass);
 			if(result == 1){					//入力した値にすべて問題がなかった場合
 				String view = "/WEB-INF/view/Login.jsp";

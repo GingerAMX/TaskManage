@@ -236,7 +236,6 @@ thead.task_thead,tbody.task_tbody {
 }
 tbody.task_tbody {
     overflow-y: scroll;
-    height: 469px;
 }
 table.content_tablelock1 td,th {
     table-layout: fixed;
